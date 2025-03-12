@@ -199,17 +199,23 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         .attr("rx", 5)
         .attr("ry", 5);
 
+    // Update axes with thicker strokes and the specified color
+
+    // X-axis
     svg.append("g")
         .attr("transform", `translate(0, ${height - margin.bottom})`)
-        .call(d3.axisBottom(xScale));
+        .call(d3.axisBottom(xScale))
+        .selectAll("path, line")
+        .attr("stroke", "#473b33")
+        .attr("stroke-width", "2");
 
+    // Y-axis (only one is needed; remove duplicate if unnecessary)
     svg.append("g")
         .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft(yScale));
-
-    svg.append("g")
-        .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale))
+        .selectAll("path, line")
+        .attr("stroke", "#473b33")
+        .attr("stroke-width", "2");
 
     // Add axis labels similar to the second visualization:
 
@@ -221,6 +227,8 @@ d3.csv("newglucosespikedata.csv").then((data) => {
             `translate(${margin.left / 1.5}, ${height / 1.8}) rotate(-90)`
         )
         .style("text-anchor", "middle")
+        .style("fill", "#473b33")
+        .style("font-weight", "bold")
         .text("Glucose Spike (mg/dL)");
 
     circles = svg
@@ -290,9 +298,7 @@ d3.csv("newglucosespikedata.csv").then((data) => {
 
 // ----------------------------------------------------------------------------
 // -----------------------------------  VIZ 2  --------------------------------
-// -----------------------------------  VIZ 2  --------------------------------
-// -----------------------------------  VIZ 2  --------------------------------
-// -----------------------------------  VIZ 2  --------------------------------
+// ----------------------------------------------------------------------------
 
 // Function to create scatter plots
 function createScatterPlots() {
@@ -353,18 +359,27 @@ function createScatterPlots() {
             .domain([0, d3.max(data, (d) => +d.spike)])
             .range([height, 0]);
 
-        // Add axes
+        // Add axes with thicker styling and the specified color
         svg.append("g")
             .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(xScale));
+            .call(d3.axisBottom(xScale))
+            .selectAll("path, line")
+            .attr("stroke", "#473b33")
+            .attr("stroke-width", "2");
 
-        svg.append("g").call(d3.axisLeft(yScale));
+        svg.append("g")
+            .call(d3.axisLeft(yScale))
+            .selectAll("path, line")
+            .attr("stroke", "#473b33")
+            .attr("stroke-width", "2");
 
-        // Add axis labels
+        // Add axis labels with thicker styling
         svg.append("text")
             .attr("x", width / 2)
             .attr("y", height + 40)
             .style("text-anchor", "middle")
+            .style("fill", "#473b33")
+            .style("font-weight", "bold")
             .text(`${nutrientType} (g)`);
 
         svg.append("text")
@@ -372,6 +387,8 @@ function createScatterPlots() {
             .attr("x", -height / 2)
             .attr("y", -40)
             .style("text-anchor", "middle")
+            .style("fill", "#473b33")
+            .style("font-weight", "bold")
             .text("Glucose Spike (mg/dL)");
 
         let currentlySelectedStatus = null;
