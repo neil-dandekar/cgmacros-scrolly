@@ -17,19 +17,35 @@ function handleResize() {
     step.style("height", stepH + "px");
     step.style("width", "250px");
 
-    var figureHeight = window.innerHeight / 2;
-    var figureMarginTop = (window.innerHeight - figureHeight) / 2;
-    figure
-        .style("height", figureHeight + "px")
-        .style("top", figureMarginTop + "px");
+    // Define the total sticky height for the figure
+    var stickyHeight = window.innerHeight / 2;
+    // Get the height of the instructions element
+    var instructionsEl = document.querySelector(".scrolly-instructions");
+    var instructionsHeight = instructionsEl ? instructionsEl.offsetHeight : 0;
+    // Set the viz height to the remaining space
+    var vizHeight = stickyHeight - instructionsHeight;
+    // New code: fixed offset so the sticky container starts near the top
+    var figureMarginTop = 20; // 20px from the top (adjust as needed)
 
-    // Scatter plots resize
+    // Set the overall sticky container height
+    figure
+        .style("height", stickyHeight + "px")
+        .style("top", figureMarginTop + "px");
+    // Adjust the D3 viz container height so it doesn't include the instructions height
+    d3.select("#glucose_viz").style("height", vizHeight + "px");
+
+    // Scatter plots resize (if applicable; adjust similarly if you add instructions there)
     stepScatter.style("height", stepH + "px");
     stepScatter.style("width", "250px");
 
+    var figureMarginTopScatter = (window.innerHeight - stickyHeight) / 2;
     figureScatter
-        .style("height", figureHeight + "px")
-        .style("top", figureMarginTop + "px");
+        .style("height", stickyHeight + "px")
+        .style("top", figureMarginTopScatter + "px");
+
+    // If you have separate viz area for scatter, adjust its height if needed.
+    // For example:
+    // d3.select("#scatter_viz").style("height", vizHeight + "px");
 
     scroller.resize();
     scrollerScatter.resize();

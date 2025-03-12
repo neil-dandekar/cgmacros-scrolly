@@ -28,12 +28,12 @@ body {
 section.generic {
     width: 600px;
     margin: 0 auto 150px;
-    padding-top: 50px;
+    padding-top: 40px;
 }
 
 section#intro {
-    padding: 50px 0 0 0;
-    margin-bottom: 300px;
+    padding: 20px 0 0 0;
+    margin-bottom: 30px;
 }
 
 #intro {
@@ -85,6 +85,17 @@ section#intro {
     }
 }
 
+/* instructions */
+
+.scrolly-instructions {
+    max-width: 600px;
+    margin: 40px auto;
+    font-size: 1em;
+    line-height: 1.5em;
+    color: var(--color-text);
+    text-align: justify;
+}
+
 /* -------------------------
    Language Label
 ------------------------- */
@@ -113,6 +124,18 @@ figure {
     width: 1200px;
     margin: 0 auto;
     z-index: 10;
+}
+
+.scrolly-instructions {
+    width: 80%;
+    max-width: 550px;
+    margin: 0 150px 10px auto; /* removes centering and pushes it to the right */
+    text-align: center !important;
+    padding: 10px 0;
+    font-size: 1em;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-accent);
 }
 
 /* -------------------------
@@ -262,6 +285,8 @@ h3 {
 }
 .step p {
     font-size: 0.9em;
+    text-align: left;
+    margin-bottom: 25px;
 }
 p.seperator {
     text-align: center;
@@ -272,10 +297,6 @@ p.seperator {
 }
 p span.label {
     font-weight: 700;
-}
-p {
-    text-align: justify;
-    margin-bottom: 25px;
 }
 p strong {
     font-weight: 700;
