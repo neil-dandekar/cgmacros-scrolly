@@ -54,7 +54,7 @@ function updateScatterPlot(step) {
 }
 
 // Load the data and initialize the visualization
-d3.csv("data.csv").then((data) => {
+d3.csv("newglucosespikedata.csv").then((data) => {
     data.forEach((d) => {
         d.bmi = +d.bmi;
         d.gut_microbiome_health = +d.gut_microbiome_health;
@@ -103,7 +103,7 @@ d3.csv("data.csv").then((data) => {
         .attr("class", "bmi-legend")
         .attr(
             "transform",
-            `translate(${margin.left + 100}, ${margin.top - 40})`
+            `translate(${margin.left + 35}, ${margin.top - 40})`
         );
     // Add legend circles
     legendGroup
@@ -146,7 +146,7 @@ d3.csv("data.csv").then((data) => {
         .attr("class", "gut-health-legend")
         .attr(
             "transform",
-            `translate(${margin.left + 450}, ${margin.top - 40})`
+            `translate(${margin.left + 430}, ${margin.top - 40})`
         );
 
     const gutHealthData = [
@@ -181,7 +181,7 @@ d3.csv("data.csv").then((data) => {
     // Add title for gut health legend
     gutHealthLegend
         .append("text")
-        .attr("x", (gutHealthData.length * 80) / 2)
+        .attr("x", (gutHealthData.length * 50) / 2)
         .attr("y", -40)
         .text("Gut Health")
         .attr("font-weight", "bold")
@@ -190,10 +190,10 @@ d3.csv("data.csv").then((data) => {
 
     svg.insert("rect", ":first-child")
         .attr("class", "legend-box")
-        .attr("x", margin.left + 60)
-        .attr("y", margin.top - 100)
-        .attr("width", 650) // Wide enough to contain both legends
-        .attr("height", 80)
+        .attr("x", margin.left + 0)
+        .attr("y", margin.top - 105)
+        .attr("width", 650)
+        .attr("height", 90)
         .attr("rx", 5)
         .attr("ry", 5);
 
@@ -229,7 +229,7 @@ d3.csv("data.csv").then((data) => {
                 Age: ${d.age}<br/>
                 Gut: ${healthStatus} <br/>
                 BMI: ${d.bmi.toFixed(2)}<br/>
-                Avg. Glucose Level: ${d["day" + currentDay].toFixed(2)}
+                Avg. Glucose Spike: ${d["day" + currentDay].toFixed(2)}
             `);
 
             let tipWidth = tooltip.node().offsetWidth;
