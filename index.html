@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Glucose Levels Scrollytelling Demo</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intersection-observer/0.7.0/intersection-observer.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/stickyfilljs@2.1.0/dist/stickyfill.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.2.0/scrollama.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.2/d3.min.js"></script>
+    </head>
+
+    <body>
+        <main>
+            <section class="generic" id="intro">
+                <h1>Glucose Levels Over 10 Days</h1>
+                <p>
+                    Scroll down to explore how glucose levels change over 10
+                    days among participants. Each bubble represents a
+                    participant, positioned by their BMI (horizontal) and gut
+                    health (vertical). Bubble size corresponds to glucose level
+                    on that day, and color indicates diabetes status.
+                </p>
+                <p>We hope you enjoy.</p>
+                <p class="seperator"></p>
+            </section>
+
+            <section id="scrolly">
+                <figure class="sticky">
+                    <div class="viz" id="glucose_viz"></div>
+                </figure>
+
+                <article>
+                    <div class="step" data-step="1">
+                        <h2>Day 1</h2>
+                        <p>Glucose levels on Day 1 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="2">
+                        <h2>Day 2</h2>
+                        <p>Glucose levels on Day 2 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="3">
+                        <h2>Day 3</h2>
+                        <p>Glucose levels on Day 3 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="4">
+                        <h2>Day 4</h2>
+                        <p>Glucose levels on Day 4 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="5">
+                        <h2>Day 5</h2>
+                        <p>Glucose levels on Day 5 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="6">
+                        <h2>Day 6</h2>
+                        <p>Glucose levels on Day 6 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="7">
+                        <h2>Day 7</h2>
+                        <p>Glucose levels on Day 7 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="8">
+                        <h2>Day 8</h2>
+                        <p>Glucose levels on Day 8 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="9">
+                        <h2>Day 9</h2>
+                        <p>Glucose levels on Day 9 for all participants.</p>
+                    </div>
+                    <div class="step" data-step="10">
+                        <h2>Day 10</h2>
+                        <p>Glucose levels on Day 10 for all participants.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Add a spacer section -->
+            <section class="generic" id="transition">
+                <h2>From Glucose to Macronutrients</h2>
+                <p>
+                    Now that we've examined glucose patterns over time, let's
+                    explore how different macronutrients affect glucose spikes.
+                </p>
+            </section>
+
+            <!-- New scrollytelling section for scatter plots -->
+            <section id="scrolly-scatter">
+                <figure class="sticky">
+                    <div class="viz" id="scatter_viz">
+                        <!-- Add initial scatter plot container -->
+                        <div id="scatter1" class="scatter-plot"></div>
+                    </div>
+                </figure>
+
+                <article>
+                    <div class="step2" data-step="2">
+                        <h2>Protein Analysis</h2>
+                        <p>
+                            Higher protein intake appears to have a moderate
+                            effect on glucose spikes across all groups.
+                        </p>
+                    </div>
+                    <div class="step2" data-step="3">
+                        <h2>Carbohydrate Impact</h2>
+                        <p>
+                            Carbohydrates show the strongest correlation with
+                            glucose spikes across all groups.
+                        </p>
+                    </div>
+                    <div class="step2" data-step="4">
+                        <h2>Fat Impact</h2>
+                        <p>
+                            Fat intake shows the weakest correlation with
+                            glucose spikes among all macronutrients.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Add a spacer section -->
+            <section class="generic" id="transition">
+                <h2>Time to Apply</h2>
+                <p>
+                    Now that we've learned about the importance of monitoring
+                    your glucose levels and the different factors that influence
+                    them, it's time to explore how you can apply this knowledge
+                    to your own health and diet.
+                </p>
+            </section>
+
+            <!-- User Input Form Section -->
+            <section id="user-form">
+                <div class="form-container">
+                    <h2>Calculate Your Glucose Spike</h2>
+                    <form id="glucose-form">
+                        <fieldset>
+                            <legend>Personal Information</legend>
+                            <div class="form-group">
+                                <label for="height">Height (in inches):</label>
+                                <input
+                                    type="number"
+                                    id="height"
+                                    name="height"
+                                    required
+                                    placeholder="e.g., 65"
+                                    min="1"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Weight (lbs):</label>
+                                <input
+                                    type="number"
+                                    id="weight"
+                                    name="weight"
+                                    required
+                                    placeholder="e.g., 150"
+                                    min="1"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age (years):</label>
+                                <input
+                                    type="number"
+                                    id="age"
+                                    name="age"
+                                    required
+                                    placeholder="e.g., 30"
+                                    min="1"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender:</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="bmi">BMI:</label>
+                                <input
+                                    type="number"
+                                    id="bmi"
+                                    name="bmi"
+                                    required
+                                    placeholder="e.g., 25.0"
+                                    step="0.1"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="diabetes">Diabetes Status:</label>
+                                <select id="diabetes" name="diabetes" required>
+                                    <option value="">Select Status</option>
+                                    <option value="non-diabetic">
+                                        Non Diabetic
+                                    </option>
+                                    <option value="type1">Type 1</option>
+                                    <option value="type2">Type 2</option>
+                                </select>
+                                <small class="error-message"></small>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Meal Macronutrients</legend>
+                            <div class="form-group">
+                                <label for="protein">Protein (g):</label>
+                                <input
+                                    type="number"
+                                    id="protein"
+                                    name="protein"
+                                    required
+                                    placeholder="grams"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="carbs">Carbohydrates (g):</label>
+                                <input
+                                    type="number"
+                                    id="carbs"
+                                    name="carbs"
+                                    required
+                                    placeholder="grams"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="fats">Fats (g):</label>
+                                <input
+                                    type="number"
+                                    id="fats"
+                                    name="fats"
+                                    required
+                                    placeholder="grams"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                        </fieldset>
+
+                        <button type="submit" class="submit-btn">
+                            Calculate Glucose Spike
+                        </button>
+                    </form>
+
+                    <div id="prediction-output">
+                        <!-- Predicted glucose spike will be displayed here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Tooltip (hidden by default) -->
+        <div id="tooltip" class="tooltip"></div>
+        <!-- D3 visualization script (draws the chart and handles data/animation) -->
+        <script src="d3-animations.js"></script>
+        <!-- Scrollama settings script (triggers animations on scroll) -->
+        <script src="scrollama-settings.js"></script>
+        <!-- Input form script -->
+        <script src="input-form.js"></script>
+    </body>
+</html>
