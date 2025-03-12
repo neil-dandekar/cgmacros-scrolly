@@ -1,46 +1,82 @@
-/* a,abbr,acronym,address,applet,big,blockquote,body,caption,cite,code,dd,del,dfn,div,dl,dt,fieldset,font,form,h1,h2,h3,h4,h5,h6,html,iframe,img,ins,kbd,label,legend,li,object,ol,p,pre,q,s,samp,small,span,strike,sub,sup,table,tbody,td,tfoot,th,thead,tr,tt,ul,var{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit}:focus{outline:0}body{line-height:1;color:#000;background:#fff}ol,ul{list-style:none}table{border-collapse:separate;border-spacing:0}caption,td,th{text-align:left;font-weight:400}blockquote:after,blockquote:before,q:after,q:before{content:""}blockquote,q{quotes:"" ""}.alignleft{float:left}.alignright{float:right}.clear{clear:both} */
-
+/* ====================================================
+   1. Base & Global Styles
+==================================================== */
 body {
-    font-family: "Roboto";
+    font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-size: 18px;
     line-height: 1.5em;
-    background: #01080d;
+    background-color: #e0d1bd;
     color: #01080d;
     margin: 0;
-    color: #333;
 }
 
+/* Headings & Text */
+h1 {
+    font-size: 3em;
+    line-height: 1em;
+    font-weight: 100;
+    margin-bottom: 50px;
+}
+
+h1 strong,
+h2,
+h3 {
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+p {
+    text-align: justify;
+    margin-bottom: 25px;
+}
+
+p strong {
+    font-weight: 700;
+}
+
+p.seperator {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1em;
+    margin: 50px 0;
+    border-bottom: 2px solid #8c8274;
+}
+
+p span.label {
+    font-weight: 700;
+}
+
+ul {
+    margin-bottom: 25px;
+}
+
+ul li {
+    list-style: disc;
+    padding-left: 15px;
+    margin-left: 15px;
+}
+
+/* ====================================================
+   2. Structural Elements
+==================================================== */
 section.generic {
     width: 500px;
-    margin: 0 auto;
-    margin-bottom: 150px;
-    padding: 50px 0 0;
+    margin: 0 auto 150px;
+    padding-top: 50px;
 }
 
-section#intro {
-    padding: 50px 0 0 0;
-}
-
-#language {
-    background: #01080d;
-    padding: 5px 10px;
-    color: #f2e8dc;
-    font-size: 0.8em;
-}
-
+/* Merge of section#intro and #intro */
 #intro {
     background-color: #e0d1bd;
-    padding: 20px;
+    padding: 50px 20px 20px;
     border-radius: 5px;
     margin-bottom: 30px;
-}
-
-#scrolly {
-    max-width: 1100px;
-    width: 90%;
-    margin: 0 auto;
-    position: relative;
 }
 
 figure {
@@ -52,6 +88,50 @@ figure {
     z-index: 10;
 }
 
+article {
+    position: relative;
+    padding: 0;
+    z-index: 0;
+}
+
+/* ====================================================
+   3. Navigation & Utility Elements
+==================================================== */
+#language {
+    background: #01080d;
+    padding: 5px 10px;
+    color: #f2e8dc;
+    font-size: 0.8em;
+}
+
+.tooltip {
+    position: absolute;
+    display: none;
+    padding: 5px 10px;
+    background: #fff;
+    border: 1px solid #333;
+    border-radius: 3px;
+    font-size: 0.9em;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.legend-box {
+    fill: #e0d1bd;
+    stroke: #333;
+    stroke-width: 1px;
+}
+
+/* ====================================================
+   4. Visualization & Layout Components
+==================================================== */
+#scrolly {
+    max-width: 1100px;
+    width: 90%;
+    margin: 0 auto 50vh;
+    position: relative;
+}
+
 #glucose_viz {
     background-color: #e0d1bd;
     /* background-color: #ffffff; */
@@ -59,12 +139,10 @@ figure {
     height: 900px;
     float: right;
     overflow: visible;
-    margin-right: -100px; /* Push the visualization to the right */
-    margin-left: 100px;
-    margin-top: -50px; /* Add space for annotations on the left */
+    margin: -50px -100px 0 100px; /* top, right, bottom, left */
 }
 
-/* for scatter plot */
+/* Scatter Plot & Scrollytelling */
 #scrolly-scatter {
     position: relative;
     display: flex;
@@ -92,11 +170,6 @@ figure {
     padding: 0 1rem;
 }
 
-.step {
-    margin: 25px 200px;
-    padding: 1rem;
-}
-
 #scatter_viz {
     width: 100%;
     height: 100%;
@@ -111,37 +184,64 @@ figure {
     height: 500px;
 }
 
-#scrolly {
-    position: relative;
-    margin-bottom: 50vh; /* Adds space between scrolly and scatter plots */
-}
-
 .scatter-plot h3 {
     text-align: center;
     margin-bottom: 1rem;
 }
 
-/* scatter step */
+/* ====================================================
+   5. Step Animations / Interactive Text
+==================================================== */
+
+/* General step (right-aligned) */
+.step {
+    margin: 25px 0;
+}
+.step:last-child {
+    margin-bottom: 0;
+}
+.step h2,
+.step p {
+    margin: 0;
+}
+.step h2 {
+    text-align: right;
+    font-size: 2em;
+    padding-bottom: 25px;
+    line-height: 0.9em;
+}
+.step h2,
+.step p {
+    padding-right: 25px;
+    border-right: 2px solid #8c8274;
+    color: #8c8274;
+}
+.step p {
+    font-size: 0.9em;
+}
+.step.is-active h2,
+.step.is-active p {
+    border-right-color: #01080d;
+    color: #01080d;
+}
+
+/* Scatter-specific step (left-aligned) */
 .step2 {
     margin: 25px 200px;
 }
-
 .step2:last-child {
     margin-bottom: 0;
 }
-
 .step2 h2,
 .step2 p {
     margin: 0;
 }
-
 .step2 h2 {
     text-align: left;
     font-size: 2em;
     padding-bottom: 25px;
     line-height: 0.9em;
 }
-
 .step2 h2,
 .step2 p {
     padding-left: 25px;
@@ -154,132 +254,19 @@ figure {
     color: #01080d;
 }
 
-article {
-    position: relative;
-    padding: 0;
-    z-index: 0;
-}
-
-.step {
-    margin: 25px 0;
-}
-
-.step:last-child {
-    margin-bottom: 0;
-}
-
-.step h2,
-.step p {
-    margin: 0;
-}
-
-.step h2 {
-    text-align: right;
-    font-size: 2em;
-    padding-bottom: 25px;
-    line-height: 0.9em;
-}
-
-.step h2,
-.step p {
-    padding-right: 25px;
-    border-right: 2px solid #8c8274;
-    color: #8c8274;
-}
-
-h1 {
-    font-size: 3em;
-    line-height: 1em;
-    font-weight: 100;
-    margin-bottom: 50px;
-}
-
-h1 strong,
-h2,
-h3 {
-    font-weight: 700;
-}
-
-h3 {
-    font-size: 2em;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.step p {
-    font-size: 0.9em;
-}
-p.seperator {
-    text-align: center;
-    font-weight: 700;
-    font-size: 1em;
-    margin: 50px 0;
-    border-bottom: 2px solid #8c8274;
-}
-p span.label {
-    font-weight: 700;
-}
-
+/* Axis Styling (for charts) */
 .axis path,
 .axis line {
     color: #f2e8dc;
     stroke: #f2e8dc;
 }
-
 .axis text {
     fill: #f2e8dc;
 }
 
-.step.is-active h2,
-.step.is-active p {
-    border-right-color: #01080d;
-    color: #01080d;
-}
-
-p {
-    text-align: justify;
-    margin-bottom: 25px;
-}
-
-p strong {
-    font-weight: 700;
-}
-
-ul {
-    margin-bottom: 25px;
-}
-ul li {
-    list-style: disc;
-    padding-left: 15px;
-    margin-left: 15px;
-    margin-left: 15px;
-}
-
-.tooltip {
-    position: absolute;
-    display: none;
-    padding: 5px 10px;
-    background: #fff;
-    border: 1px solid #333;
-    border-radius: 3px;
-    font-size: 0.9em;
-    pointer-events: none;
-    z-index: 999;
-}
-.legend-box {
-    fill: #e0d1bd;
-    stroke: #333;
-    stroke-width: 1px;
-}
-
-body {
-    font-family: "Roboto";
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.5em;
-    background-color: #e0d1bd;
-    color: #01080d;
-}
+/* ====================================================
+   6. Footer
+==================================================== */
 #footer {
     width: 100%;
     color: #f2e8dc;
@@ -288,9 +275,9 @@ body {
     padding: 50px 0;
 }
 
-/* =====================
-   Input Form Section
-===================== */
+/* ====================================================
+   7. Input Form Section
+==================================================== */
 #user-form {
     width: 750px;
     margin: 50px auto;
