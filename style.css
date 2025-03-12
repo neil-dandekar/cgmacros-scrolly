@@ -43,6 +43,17 @@ section#intro {
     margin-bottom: 30px;
 }
 
+.byline {
+    text-align: center;
+    font-weight: 600; /* Adjust thickness as needed */
+    margin-bottom: 20px; /* Optional spacing */
+}
+
+.byline a {
+    text-decoration: underline;
+    color: var(--color-text);
+}
+
 /* -------------------------
    Scroll Down Prompt
 ------------------------- */
