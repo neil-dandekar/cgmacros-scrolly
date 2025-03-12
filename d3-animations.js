@@ -9,9 +9,9 @@ const tooltip = d3.select("#tooltip");
 
 // Discrete color mapping for gut health => 1,2,3
 const gutColors = {
-    1: "#7CB9E8", // darker light blue
-    2: "#4169E1", // darker medium blue
-    3: "#000080", // navy blue
+    1: "#BF616A", // red
+    2: "#E3B23C", // yellow
+    3: "#A3B18A", // green
 };
 
 const healthLabels = {
@@ -77,7 +77,7 @@ d3.csv("newglucosespikedata.csv").then((data) => {
 
     yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(data, (d) => d["day10"])])
+        .domain([0, 160])
         .range([height - margin.bottom, margin.top]);
 
     radiusScale = d3
@@ -96,14 +96,15 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         .attr("width", width)
         .attr("height", height);
 
-    // for legend
+    // For legend
     const bmiValues = [20, 25, 30, 35, 40];
+    // Shifted up by 20px (from margin.top - 40 to margin.top - 60)
     const legendGroup = svg
         .append("g")
         .attr("class", "bmi-legend")
         .attr(
             "transform",
-            `translate(${margin.left + 35}, ${margin.top - 40})`
+            `translate(${margin.left + 35}, ${margin.top - 60})`
         );
     // Add legend circles
     legendGroup
@@ -115,7 +116,7 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         .attr("cy", 0)
         .attr("r", (d) => radiusScale(d))
         .attr("fill", "#333")
-        .attr("opacity", 0.8);
+        .attr("opacity", 0.7);
 
     // Add BMI labels
     legendGroup
@@ -140,13 +141,13 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         .attr("text-anchor", "middle");
 
     // For gut health legend
-    // Add Gut Health Legend
+    // Shifted up by 20px (from margin.top - 40 to margin.top - 60)
     const gutHealthLegend = svg
         .append("g")
         .attr("class", "gut-health-legend")
         .attr(
             "transform",
-            `translate(${margin.left + 430}, ${margin.top - 40})`
+            `translate(${margin.left + 430}, ${margin.top - 60})`
         );
 
     const gutHealthData = [
@@ -188,10 +189,11 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         .attr("font-size", "14px")
         .attr("text-anchor", "middle");
 
+    // Shifted up by 20px (from margin.top - 105 to margin.top - 125)
     svg.insert("rect", ":first-child")
         .attr("class", "legend-box")
         .attr("x", margin.left + 0)
-        .attr("y", margin.top - 105)
+        .attr("y", margin.top - 125)
         .attr("width", 650)
         .attr("height", 90)
         .attr("rx", 5)
@@ -205,6 +207,22 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(yScale));
 
+    svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(yScale));
+
+    // Add axis labels similar to the second visualization:
+
+    // Y-axis label: Rotated and centered alongside the y-axis.
+    svg.append("text")
+        .attr("class", "y-axis-label")
+        .attr(
+            "transform",
+            `translate(${margin.left / 1.5}, ${height / 1.8}) rotate(-90)`
+        )
+        .style("text-anchor", "middle")
+        .text("Glucose Spike (mg/dL)");
+
     circles = svg
         .selectAll("circle")
         .data(data)
@@ -213,12 +231,11 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         .attr("stroke", "black")
         .attr("fill", (d) => gutColors[d.gut_microbiome_health] || "#999")
         .attr("r", (d) => (d.bmi > 0 ? radiusScale(d.bmi) : 3))
-        .style("opacity", 0.7)
-
+        .style("opacity", 0.85)
         // Tooltip interactions
         .on("mouseover", function (event, d) {
             tooltip.style("display", "block");
-            d3.select(this).transition().duration(200).style("opacity", 1);
+            // d3.select(this).transition().duration(200).style("opacity", 0.85);
         })
         .on("mousemove", function (event, d) {
             let healthStatus =
@@ -241,7 +258,7 @@ d3.csv("newglucosespikedata.csv").then((data) => {
         })
         .on("mouseout", function () {
             tooltip.style("display", "none");
-            d3.select(this).transition().duration(200).style("opacity", 0.7);
+            // d3.select(this).transition().duration(200).style("opacity", 0.7);
         });
 
     // Force simulation to prevent overlap but keep bubbles close

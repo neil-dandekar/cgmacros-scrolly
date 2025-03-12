@@ -1,3 +1,14 @@
+:root {
+    /* Using your palette as a guide:
+       #EDEDE9, #D6CCC2, #F5EBE0, #E3D5CA, #D5BDAF */
+    --color-bg: #f5ebe0; /* Background color: warm cream */
+    --color-text: #473b33; /* Text color: darker beige for contrast */
+    --color-accent: #d6ccc2; /* Accent color: medium beige for highlights */
+    --color-axis: #e3d5ca; /* Axis color: soft beige */
+    --color-border: #473b33; /* Border color: very light grayish tone */
+    --color-error: #d9534f;
+}
+
 /* -------------------------
    Global Styles & Typography
 ------------------------- */
@@ -7,16 +18,15 @@ body {
     font-size: 18px;
     line-height: 1.5em;
     margin: 0;
-    /* Final effective background and text colors (second body rule wins) */
-    background-color: #ffffff;
-    color: #01080d;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 /* -------------------------
    Sections & Intro
 ------------------------- */
 section.generic {
-    width: 500px;
+    width: 600px;
     margin: 0 auto 150px;
     padding-top: 50px;
 }
@@ -26,7 +36,7 @@ section#intro {
 }
 
 #intro {
-    background-color: #ffffff;
+    background-color: var(--color-bg);
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 30px;
@@ -36,9 +46,9 @@ section#intro {
    Language Label
 ------------------------- */
 #language {
-    background: #01080d;
+    background: var(--color-text);
     padding: 5px 10px;
-    color: #ffffff;
+    color: var(--color-bg);
     font-size: 0.8em;
 }
 
@@ -50,7 +60,6 @@ section#intro {
     width: 90%;
     margin: 0 auto;
     position: relative;
-    /* Adds space between scrolly and scatter plots */
     margin-bottom: 50vh;
 }
 
@@ -67,12 +76,11 @@ figure {
    Glucose Visualization
 ------------------------- */
 #glucose_viz {
-    background-color: #ffffff;
+    background-color: var(--color-bg);
     width: 1000px;
     height: 900px;
     float: right;
     overflow: visible;
-    /* Push the visualization to the right & add left space for annotations */
     margin: -50px -100px 0 100px;
 }
 
@@ -82,7 +90,7 @@ figure {
 #scrolly-scatter {
     position: relative;
     display: flex;
-    background-color: #ffffff;
+    background-color: var(--color-bg);
 }
 #scrolly-scatter > * {
     flex: 1;
@@ -106,7 +114,6 @@ figure {
 /* -------------------------
    Step Styles (Narrative)
 ------------------------- */
-/* Note: The earlier .step rule setting margin: 25px 200px is overridden by the later declaration */
 .step {
     margin: 25px 0;
     padding: 1rem;
@@ -118,8 +125,8 @@ figure {
 .step p {
     margin: 0;
     padding-right: 25px;
-    border-right: 2px solid #8c8274;
-    color: #8c8274;
+    border-right: 2px solid var(--color-accent);
+    color: var(--color-accent);
 }
 .step h2 {
     text-align: right;
@@ -129,8 +136,8 @@ figure {
 }
 .step.is-active h2,
 .step.is-active p {
-    border-right-color: #01080d;
-    color: #01080d;
+    border-right-color: var(--color-text);
+    color: var(--color-text);
 }
 
 /* -------------------------
@@ -173,13 +180,13 @@ figure {
 .step2 h2,
 .step2 p {
     padding-left: 25px;
-    border-left: 2px solid #8c8274;
-    color: #8c8274;
+    border-left: 2px solid var(--color-accent);
+    color: var(--color-accent);
 }
 .step2.is-active h2,
 .step2.is-active p {
-    border-left-color: #01080d;
-    color: #01080d;
+    border-left-color: var(--color-text);
+    color: var(--color-text);
 }
 
 /* -------------------------
@@ -218,7 +225,7 @@ p.seperator {
     font-weight: 700;
     font-size: 1em;
     margin: 50px 0;
-    border-bottom: 2px solid #8c8274;
+    border-bottom: 2px solid var(--color-text);
 }
 p span.label {
     font-weight: 700;
@@ -244,25 +251,25 @@ ul li {
 ------------------------- */
 .axis path,
 .axis line {
-    stroke: #f2e8dc;
+    stroke: var(--color-axis);
 }
 .axis text {
-    fill: #f2e8dc;
+    fill: var(--color-axis);
 }
 .tooltip {
     position: absolute;
     display: none;
     padding: 5px 10px;
-    background: #fff;
-    border: 1px solid #333;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: 3px;
     font-size: 0.9em;
     pointer-events: none;
     z-index: 999;
 }
 .legend-box {
-    fill: #ffffff;
-    stroke: #333;
+    fill: var(--color-bg);
+    stroke: var(--color-border);
     stroke-width: 1px;
 }
 
@@ -271,8 +278,8 @@ ul li {
 ------------------------- */
 #footer {
     width: 100%;
-    color: #f2e8dc;
-    background-color: #01080d;
+    color: var(--color-axis);
+    background-color: var(--color-text);
     margin-top: 50px;
     padding: 50px 0;
 }
@@ -284,7 +291,7 @@ ul li {
     width: 750px;
     margin: 50px auto;
     padding: 30px;
-    background: #ffffff;
+    background: var(--color-bg);
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -319,26 +326,43 @@ ul li {
 #user-form input,
 #user-form select {
     padding: 10px;
-    border: 1px solid #8c8274;
+    border: 1px solid var(--color-accent);
     border-radius: 4px;
     font-size: 16px;
     font-family: "Roboto", sans-serif;
+    background-color: var(--color-bg);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    /* Remove default styling on some browsers */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
+
+#user-form select {
+    /* Add custom arrow using an inline SVG */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23D6CCC2' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
 #user-form input:focus,
 #user-form select:focus {
-    outline: none;
-    border-color: #01080d;
+    border-color: var(--color-text);
+    box-shadow: 0 0 5px var(--color-accent);
 }
 #user-form .error-message {
-    color: #d9534f;
+    color: var(--color-error);
     font-size: 0.8em;
     margin-top: 5px;
     display: none;
 }
 #user-form .submit-btn {
     padding: 12px;
-    background: #01080d;
-    color: #ffffff;
+    background: var(--color-text);
+    color: var(--color-bg);
     font-size: 1em;
     font-weight: 700;
     border: none;
@@ -347,12 +371,12 @@ ul li {
     transition: background 0.3s ease;
 }
 #user-form .submit-btn:hover {
-    background: #333;
+    background: var(--color-border);
 }
 #prediction-output {
     margin-top: 20px;
     padding: 15px;
-    border: 1px solid #8c8274;
+    border: 1px solid var(--color-accent);
     border-radius: 4px;
     text-align: center;
     font-size: 1.2em;
