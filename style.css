@@ -1,44 +1,57 @@
+/* -------------------------
+   Global Styles & Typography
+------------------------- */
 body {
     font-family: "Roboto";
     font-weight: 300;
     font-size: 18px;
     line-height: 1.5em;
-    background: #01080d;
-    color: #01080d;
     margin: 0;
-    color: #333;
+    /* Final effective background and text colors (second body rule wins) */
+    background-color: #ffffff;
+    color: #01080d;
 }
 
+/* -------------------------
+   Sections & Intro
+------------------------- */
 section.generic {
     width: 500px;
-    margin: 0 auto;
-    margin-bottom: 150px;
-    padding: 50px 0 0;
+    margin: 0 auto 150px;
+    padding-top: 50px;
 }
 
 section#intro {
     padding: 50px 0 0 0;
 }
 
-#language {
-    background: #01080d;
-    padding: 5px 10px;
-    color: #f2e8dc;
-    font-size: 0.8em;
-}
-
 #intro {
-    background-color: #e0d1bd;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 30px;
 }
 
+/* -------------------------
+   Language Label
+------------------------- */
+#language {
+    background: #01080d;
+    padding: 5px 10px;
+    color: #ffffff;
+    font-size: 0.8em;
+}
+
+/* -------------------------
+   Scrolly & Figure
+------------------------- */
 #scrolly {
     max-width: 1100px;
     width: 90%;
     margin: 0 auto;
     position: relative;
+    /* Adds space between scrolly and scatter plots */
+    margin-bottom: 50vh;
 }
 
 figure {
@@ -50,29 +63,30 @@ figure {
     z-index: 10;
 }
 
+/* -------------------------
+   Glucose Visualization
+------------------------- */
 #glucose_viz {
-    background-color: #e0d1bd;
-    /* background-color: #ffffff; */
+    background-color: #ffffff;
     width: 1000px;
     height: 900px;
     float: right;
     overflow: visible;
-    margin-right: -100px; /* Push the visualization to the right */
-    margin-left: 100px;
-    margin-top: -50px; /* Add space for annotations on the left */
+    /* Push the visualization to the right & add left space for annotations */
+    margin: -50px -100px 0 100px;
 }
 
-/* for scatter plot */
+/* -------------------------
+   Scrolly Scatter Layout
+------------------------- */
 #scrolly-scatter {
     position: relative;
     display: flex;
-    background-color: #e0d1bd;
+    background-color: #ffffff;
 }
-
 #scrolly-scatter > * {
     flex: 1;
 }
-
 #scrolly-scatter figure {
     position: -webkit-sticky;
     position: sticky;
@@ -82,7 +96,6 @@ figure {
     left: 0;
     margin: 0;
 }
-
 #scrolly-scatter article {
     position: relative;
     width: 40%;
@@ -90,11 +103,39 @@ figure {
     padding: 0 1rem;
 }
 
+/* -------------------------
+   Step Styles (Narrative)
+------------------------- */
+/* Note: The earlier .step rule setting margin: 25px 200px is overridden by the later declaration */
 .step {
-    margin: 25px 200px;
+    margin: 25px 0;
     padding: 1rem;
 }
+.step:last-child {
+    margin-bottom: 0;
+}
+.step h2,
+.step p {
+    margin: 0;
+    padding-right: 25px;
+    border-right: 2px solid #8c8274;
+    color: #8c8274;
+}
+.step h2 {
+    text-align: right;
+    font-size: 2em;
+    padding-bottom: 25px;
+    line-height: 0.9em;
+}
+.step.is-active h2,
+.step.is-active p {
+    border-right-color: #01080d;
+    color: #01080d;
+}
 
+/* -------------------------
+   Scatter Visualization & Steps
+------------------------- */
 #scatter_viz {
     width: 100%;
     height: 100%;
@@ -103,43 +144,32 @@ figure {
     align-items: center;
     justify-content: center;
 }
-
 .scatter-plot {
     width: 100%;
     height: 500px;
 }
-
-#scrolly {
-    position: relative;
-    margin-bottom: 50vh; /* Adds space between scrolly and scatter plots */
-}
-
 .scatter-plot h3 {
     text-align: center;
     margin-bottom: 1rem;
 }
 
-/* scatter step */
+/* Scatter step styling */
 .step2 {
     margin: 25px 200px;
 }
-
 .step2:last-child {
     margin-bottom: 0;
 }
-
 .step2 h2,
 .step2 p {
     margin: 0;
 }
-
 .step2 h2 {
     text-align: left;
     font-size: 2em;
     padding-bottom: 25px;
     line-height: 0.9em;
 }
-
 .step2 h2,
 .step2 p {
     padding-left: 25px;
@@ -148,62 +178,38 @@ figure {
 }
 .step2.is-active h2,
 .step2.is-active p {
-    border-right-color: #01080d;
+    border-left-color: #01080d;
     color: #01080d;
 }
 
+/* -------------------------
+   Article
+------------------------- */
 article {
     position: relative;
     padding: 0;
     z-index: 0;
 }
 
-.step {
-    margin: 25px 0;
-}
-
-.step:last-child {
-    margin-bottom: 0;
-}
-
-.step h2,
-.step p {
-    margin: 0;
-}
-
-.step h2 {
-    text-align: right;
-    font-size: 2em;
-    padding-bottom: 25px;
-    line-height: 0.9em;
-}
-
-.step h2,
-.step p {
-    padding-right: 25px;
-    border-right: 2px solid #8c8274;
-    color: #8c8274;
-}
-
+/* -------------------------
+   Headings & Paragraphs
+------------------------- */
 h1 {
     font-size: 3em;
     line-height: 1em;
     font-weight: 100;
     margin-bottom: 50px;
 }
-
 h1 strong,
 h2,
 h3 {
     font-weight: 700;
 }
-
 h3 {
     font-size: 2em;
     text-align: center;
     margin-bottom: 50px;
 }
-
 .step p {
     font-size: 0.9em;
 }
@@ -217,32 +223,13 @@ p.seperator {
 p span.label {
     font-weight: 700;
 }
-
-.axis path,
-.axis line {
-    color: #f2e8dc;
-    stroke: #f2e8dc;
-}
-
-.axis text {
-    fill: #f2e8dc;
-}
-
-.step.is-active h2,
-.step.is-active p {
-    border-right-color: #01080d;
-    color: #01080d;
-}
-
 p {
     text-align: justify;
     margin-bottom: 25px;
 }
-
 p strong {
     font-weight: 700;
 }
-
 ul {
     margin-bottom: 25px;
 }
@@ -250,9 +237,18 @@ ul li {
     list-style: disc;
     padding-left: 15px;
     margin-left: 15px;
-    margin-left: 15px;
 }
 
+/* -------------------------
+   Axis & Tooltip
+------------------------- */
+.axis path,
+.axis line {
+    stroke: #f2e8dc;
+}
+.axis text {
+    fill: #f2e8dc;
+}
 .tooltip {
     position: absolute;
     display: none;
@@ -265,19 +261,14 @@ ul li {
     z-index: 999;
 }
 .legend-box {
-    fill: #e0d1bd;
+    fill: #ffffff;
     stroke: #333;
     stroke-width: 1px;
 }
 
-body {
-    font-family: "Roboto";
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.5em;
-    background-color: #e0d1bd;
-    color: #01080d;
-}
+/* -------------------------
+   Footer
+------------------------- */
 #footer {
     width: 100%;
     color: #f2e8dc;
@@ -286,52 +277,45 @@ body {
     padding: 50px 0;
 }
 
-/* =====================
+/* -------------------------
    Input Form Section
-===================== */
+------------------------- */
 #user-form {
     width: 750px;
     margin: 50px auto;
     padding: 30px;
-    background: #e0d1bd;
+    background: #ffffff;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 #user-form .form-container h2 {
     text-align: center;
     margin-bottom: 20px;
     font-weight: 700;
 }
-
 #user-form form {
     display: flex;
     flex-direction: column;
 }
-
 #user-form fieldset {
     border: none;
     margin-bottom: 20px;
     padding: 0;
 }
-
 #user-form fieldset legend {
     font-size: 1.2em;
     margin-bottom: 10px;
     font-weight: 700;
 }
-
 #user-form .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
 }
-
 #user-form label {
     margin-bottom: 5px;
     font-weight: 500;
 }
-
 #user-form input,
 #user-form select {
     padding: 10px;
@@ -340,24 +324,21 @@ body {
     font-size: 16px;
     font-family: "Roboto", sans-serif;
 }
-
 #user-form input:focus,
 #user-form select:focus {
     outline: none;
     border-color: #01080d;
 }
-
 #user-form .error-message {
     color: #d9534f;
     font-size: 0.8em;
     margin-top: 5px;
     display: none;
 }
-
 #user-form .submit-btn {
     padding: 12px;
     background: #01080d;
-    color: #e0d1bd;
+    color: #ffffff;
     font-size: 1em;
     font-weight: 700;
     border: none;
@@ -365,15 +346,12 @@ body {
     cursor: pointer;
     transition: background 0.3s ease;
 }
-
 #user-form .submit-btn:hover {
     background: #333;
 }
-
 #prediction-output {
     margin-top: 20px;
     padding: 15px;
-    background: #f2e8dc;
     border: 1px solid #8c8274;
     border-radius: 4px;
     text-align: center;

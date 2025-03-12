@@ -310,19 +310,16 @@ function createScatterPlots() {
         .domain(["Non-Diabetic", "Pre-Diabetic", "Type 2 Diabetic"])
         .range(["#1f77b4", "#ff7f0e", "#2ca02c"]);
 
-    // Load data once and create all plots
     d3.csv("meal_averages.csv").then(function (data) {
-        // Protein scatter plot
-        createProteinPlot(data);
-        // Carbs scatter plot
-        createCarbsPlot(data);
-        // Fat scatter plot
-        createFatPlot(data);
+        // Create scatter plots for each macro
+        createMacroPlot(data, "Protein", "#scatter1");
+        createMacroPlot(data, "Carbs", "#scatter2");
+        createMacroPlot(data, "Fat", "#scatter3");
     });
 
-    function createProteinPlot(data) {
-        const svg1 = d3
-            .select("#scatter1")
+    function createMacroPlot(data, nutrientType, containerId) {
+        const svg = d3
+            .select(containerId)
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -331,7 +328,7 @@ function createScatterPlots() {
 
         const xScale = d3
             .scaleLinear()
-            .domain([0, d3.max(data, (d) => +d.Protein)])
+            .domain([0, d3.max(data, (d) => +d[nutrientType])])
             .range([0, width]);
 
         const yScale = d3
@@ -340,67 +337,65 @@ function createScatterPlots() {
             .range([height, 0]);
 
         // Add axes
-        svg1.append("g")
+        svg.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(d3.axisBottom(xScale));
 
-        svg1.append("g").call(d3.axisLeft(yScale));
+        svg.append("g").call(d3.axisLeft(yScale));
 
         // Add axis labels
-        svg1.append("text")
+        svg.append("text")
             .attr("x", width / 2)
             .attr("y", height + 40)
             .style("text-anchor", "middle")
-            .text("Protein (g)");
-        3;
+            .text(`${nutrientType} (g)`);
 
-        svg1.append("text")
+        svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("x", -height / 2)
             .attr("y", -40)
             .style("text-anchor", "middle")
             .text("Glucose Spike (mg/dL)");
 
-        // Add dots
         let currentlySelectedStatus = null;
 
-        // Append a transparent rectangle to serve as a clickable background
-        svg1.append("rect")
+        // Background rectangle for click exiting
+        svg.append("rect")
             .attr("width", width)
             .attr("height", height)
             .attr("fill", "transparent")
             .lower()
             .on("click", function () {
                 currentlySelectedStatus = null;
-                svg1.selectAll("circle").style("opacity", 0.6);
+                svg.selectAll("circle").style("opacity", 0.6);
             });
 
-        // Add the circles
-        svg1.selectAll("circle")
+        // Add circles
+        svg.selectAll("circle")
             .data(data)
             .enter()
             .append("circle")
-            .attr("cx", (d) => xScale(+d.Protein))
+            .attr("cx", (d) => xScale(+d[nutrientType]))
             .attr("cy", (d) => yScale(+d.spike))
             .attr("r", 5)
             .style("fill", (d) => colorScale(d.diabetic_status))
             .style("opacity", 0.6)
+            // highlight diabetic status group
             .on("click", function (event, d) {
-                // Prevent the click event from bubbling up to the background rect
                 event.stopPropagation();
-                // Toggle the selection
                 if (currentlySelectedStatus === d.diabetic_status) {
                     currentlySelectedStatus = null;
-                    svg1.selectAll("circle").style("opacity", 0.6);
+                    svg.selectAll("circle").style("opacity", 0.6);
                 } else {
                     currentlySelectedStatus = d.diabetic_status;
-                    svg1.selectAll("circle").style("opacity", (dot) =>
+                    svg.selectAll("circle").style("opacity", (dot) =>
                         dot.diabetic_status === currentlySelectedStatus
                             ? 1
                             : 0.2
                     );
                 }
             })
+            // tooltip stuff
             .on("mouseover", function (event, d) {
                 tooltip.style("display", "block");
                 d3.select(this).style("opacity", 1);
@@ -411,109 +406,9 @@ function createScatterPlots() {
                         `
                     <strong>Meal:</strong> ${d["Meal Type"]}<br/>
                     <strong>Spike:</strong> ${(+d.spike).toFixed(1)} mg/dL<br/>
-                    <strong>Protein:</strong> ${(+d.Protein).toFixed(1)}g
-                `
-                    )
-                    .style("left", event.pageX + 10 + "px")
-                    .style("top", event.pageY - 10 + "px");
-            })
-            .on("mouseout", function () {
-                tooltip.style("display", "none");
-                d3.select(this).style("opacity", 0.6);
-            });
-        addLegend(svg1);
-    }
-
-    function createCarbsPlot(data) {
-        const svg2 = d3
-            .select("#scatter2")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        const xScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(data, (d) => +d.Carbs)])
-            .range([0, width]);
-
-        const yScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(data, (d) => +d.spike)])
-            .range([height, 0]);
-
-        // Add axes
-        svg2.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(xScale));
-
-        svg2.append("g").call(d3.axisLeft(yScale));
-
-        // Add axis labels
-        svg2.append("text")
-            .attr("x", width / 2)
-            .attr("y", height + 40)
-            .style("text-anchor", "middle")
-            .text("Carbohydrates (g)");
-
-        svg2.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("x", -height / 2)
-            .attr("y", -40)
-            .style("text-anchor", "middle")
-            .text("Glucose Spike (mg/dL)");
-
-        let currentlySelectedStatus = null;
-
-        // Append a transparent rectangle to serve as a clickable background
-        svg2.append("rect")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("fill", "transparent")
-            .lower()
-            .on("click", function () {
-                currentlySelectedStatus = null;
-                svg2.selectAll("circle").style("opacity", 0.6);
-            });
-
-        // Add the circles
-        svg2.selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", (d) => xScale(+d.Protein))
-            .attr("cy", (d) => yScale(+d.spike))
-            .attr("r", 5)
-            .style("fill", (d) => colorScale(d.diabetic_status))
-            .style("opacity", 0.6)
-            .on("click", function (event, d) {
-                // Prevent the click event from bubbling up to the background rect
-                event.stopPropagation();
-                // Toggle the selection
-                if (currentlySelectedStatus === d.diabetic_status) {
-                    currentlySelectedStatus = null;
-                    svg2.selectAll("circle").style("opacity", 0.6);
-                } else {
-                    currentlySelectedStatus = d.diabetic_status;
-                    svg2.selectAll("circle").style("opacity", (dot) =>
-                        dot.diabetic_status === currentlySelectedStatus
-                            ? 1
-                            : 0.2
-                    );
-                }
-            })
-            .on("mouseover", function (event, d) {
-                tooltip.style("display", "block");
-                d3.select(this).style("opacity", 1);
-            })
-            .on("mousemove", function (event, d) {
-                tooltip
-                    .html(
-                        `
-                    <strong>Meal:</strong> ${d["Meal Type"]}<br/>
-                    <strong>Spike:</strong> ${(+d.spike).toFixed(1)} mg/dL<br/>
-                    <strong>Protein:</strong> ${(+d.Protein).toFixed(1)}g
+                    <strong>${nutrientType}:</strong> ${(+d[
+                            nutrientType
+                        ]).toFixed(1)}g
                 `
                     )
                     .style("left", event.pageX + 10 + "px")
@@ -524,110 +419,47 @@ function createScatterPlots() {
                 d3.select(this).style("opacity", 0.6);
             });
 
-        addLegend(svg2);
-    }
+        // line of best fit
+        const diabeticStatus = [
+            "Non-Diabetic",
+            "Pre-Diabetic",
+            "Type 2 Diabetic",
+        ];
 
-    function createFatPlot(data) {
-        const svg3 = d3
-            .select("#scatter3")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+        diabeticStatus.forEach((status) => {
+            // Filter data for this status
+            const statusData = data.filter((d) => d.diabetic_status === status);
 
-        const xScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(data, (d) => +d.Fat)])
-            .range([0, width]);
+            // Calculate regression
+            const regression = calculateRegression(statusData, nutrientType);
 
-        const yScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(data, (d) => +d.spike)])
-            .range([height, 0]);
+            // Create line generator
+            const line = d3
+                .line()
+                .x((d) => xScale(d[0]))
+                .y((d) => yScale(d[1]));
 
-        // Add axes
-        svg3.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(xScale));
+            // Add the regression line
+            svg.append("path")
+                .datum(regression.points)
+                .attr("class", "regression-line")
+                .attr("fill", "none")
+                .attr("stroke", colorScale(status))
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", function () {
+                    return this.getTotalLength();
+                })
+                .attr("stroke-dashoffset", function () {
+                    return this.getTotalLength();
+                })
+                .attr("d", line)
+                .transition()
+                .delay(500) // Wait for scatter plot to appear
+                .duration(1000)
+                .attr("stroke-dashoffset", 0);
+        });
 
-        svg3.append("g").call(d3.axisLeft(yScale));
-
-        // Add axis labels
-        svg3.append("text")
-            .attr("x", width / 2)
-            .attr("y", height + 40)
-            .style("text-anchor", "middle")
-            .text("Fat (g)");
-
-        svg3.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("x", -height / 2)
-            .attr("y", -40)
-            .style("text-anchor", "middle")
-            .text("Glucose Spike (mg/dL)");
-
-        // Add dots
-        let currentlySelectedStatus = null;
-        // Append a transparent rectangle to serve as a clickable background
-        svg3.append("rect")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("fill", "transparent")
-            .lower()
-            .on("click", function () {
-                currentlySelectedStatus = null;
-                svg3.selectAll("circle").style("opacity", 0.6);
-            });
-
-        // Add the circles
-        svg3.selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", (d) => xScale(+d.Protein))
-            .attr("cy", (d) => yScale(+d.spike))
-            .attr("r", 5)
-            .style("fill", (d) => colorScale(d.diabetic_status))
-            .style("opacity", 0.6)
-            .on("click", function (event, d) {
-                // Prevent the click event from bubbling up to the background rect
-                event.stopPropagation();
-                // Toggle the selection
-                if (currentlySelectedStatus === d.diabetic_status) {
-                    currentlySelectedStatus = null;
-                    svg3.selectAll("circle").style("opacity", 0.6);
-                } else {
-                    currentlySelectedStatus = d.diabetic_status;
-                    svg3.selectAll("circle").style("opacity", (dot) =>
-                        dot.diabetic_status === currentlySelectedStatus
-                            ? 1
-                            : 0.2
-                    );
-                }
-            })
-            .on("mouseover", function (event, d) {
-                tooltip.style("display", "block");
-                d3.select(this).style("opacity", 1);
-            })
-            .on("mousemove", function (event, d) {
-                tooltip
-                    .html(
-                        `
-                <strong>Meal:</strong> ${d["Meal Type"]}<br/>
-                <strong>Spike:</strong> ${(+d.spike).toFixed(1)} mg/dL<br/>
-                <strong>Protein:</strong> ${(+d.Protein).toFixed(1)}g
-            `
-                    )
-                    .style("left", event.pageX + 10 + "px")
-                    .style("top", event.pageY - 10 + "px");
-            })
-            .on("mouseout", function () {
-                tooltip.style("display", "none");
-                d3.select(this).style("opacity", 0.6);
-            });
-
-        addLegend(svg3);
+        addLegend(svg);
     }
 
     function addLegend(svg) {
@@ -658,6 +490,38 @@ function createScatterPlots() {
                 .style("font-size", "12px");
         });
     }
+}
+
+// Helper function for line of best fit
+function calculateRegression(data, nutrientType) {
+    const xValues = data.map((d) => +d[nutrientType]);
+    const yValues = data.map((d) => +d.spike);
+
+    const xMean = d3.mean(xValues);
+    const yMean = d3.mean(yValues);
+
+    const ssXX = d3.sum(xValues.map((x) => Math.pow(x - xMean, 2)));
+    const ssXY = d3.sum(
+        xValues.map((x, i) => (x - xMean) * (yValues[i] - yMean))
+    );
+
+    const slope = ssXY / ssXX;
+    const intercept = yMean - slope * xMean;
+
+    // Generate points for the line
+    const x1 = d3.min(xValues);
+    const x2 = d3.max(xValues);
+    const y1 = slope * x1 + intercept;
+    const y2 = slope * x2 + intercept;
+
+    return {
+        slope: slope,
+        intercept: intercept,
+        points: [
+            [x1, y1],
+            [x2, y2],
+        ],
+    };
 }
 
 // Call the function after your existing code
