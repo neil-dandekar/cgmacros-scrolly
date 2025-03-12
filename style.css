@@ -33,6 +33,7 @@ section.generic {
 
 section#intro {
     padding: 50px 0 0 0;
+    margin-bottom: 300px;
 }
 
 #intro {
@@ -40,6 +41,37 @@ section#intro {
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 30px;
+}
+
+/* -------------------------
+   Scroll Down Prompt
+------------------------- */
+.scroll-down {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.scroll-text {
+    display: block;
+    font-size: 1em;
+    color: var(--color-text);
+}
+
+.scroll-arrow {
+    display: block;
+    font-size: 2em;
+    animation: bounce 2s ease-in-out infinite;
+    color: var(--color-text);
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
 }
 
 /* -------------------------
