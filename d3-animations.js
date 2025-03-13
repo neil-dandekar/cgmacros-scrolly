@@ -7,11 +7,18 @@ let currentScatterPlot = 1;
 // Tooltip div selection
 const tooltip = d3.select("#tooltip");
 
+// // Discrete color mapping for gut health => 1,2,3
+// const gutColors = {
+//     1: "#BF616A", // red
+//     2: "#E3B23C", // yellow
+//     3: "#A3B18A", // green
+// };
+
 // Discrete color mapping for gut health => 1,2,3
 const gutColors = {
-    1: "#BF616A", // red
+    1: "#A3B18A", // red
     2: "#E3B23C", // yellow
-    3: "#A3B18A", // green
+    3: "#BF616A" , // green
 };
 
 const healthLabels = {
