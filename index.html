@@ -68,6 +68,81 @@
                 </div>
             </section>
 
+           <!-- Quiz Section -->
+            <section id="quiz-section">
+                <h2>How much do these factors affect glucose spikes?</h2>
+                <p>Adjust the sliders to indicate how important each factor is.</p>
+
+                <div class="quiz-container">
+                    <div class="quiz-group">
+                        <label>BMI:</label>
+                        <input type="range" id="bmi-importance" min="0" max="100" value="50">
+                        <span id="bmi-value">50%</span>
+                    </div>
+
+                    <div class="quiz-group">
+                        <label>Age:</label>
+                        <input type="range" id="age-importance" min="0" max="100" value="50">
+                        <span id="age-value">50%</span>
+                    </div>
+
+                    <div class="quiz-group">
+                        <label>Gut Microbiome Health:</label>
+                        <input type="range" id="gut-importance" min="0" max="100" value="50">
+                        <span id="gut-value">50%</span>
+                    </div>
+
+                    <div class="quiz-group">
+                        <label>Gender:</label>
+                        <input type="range" id="gender-importance" min="0" max="100" value="50">
+                        <span id="gender-value">50%</span>
+                    </div>
+                </div>
+
+                <h3>Which group do you think has the highest glucose spikes?</h3>
+                <div id="diabetes-question" class="quiz-question">
+                    <label>
+                        <input type="radio" name="diabetes-choice" value="type1"> Type 1 Diabetics
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="diabetes-choice" value="type2"> Type 2 Diabetics
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="diabetes-choice" value="pre"> Pre-Diabetics
+                    </label>
+                </div>
+
+                <h3>Food Macronutrients</h3>
+                <div class="quiz-container">
+                    <div class="quiz-group">
+                        <label>Protein:</label>
+                        <input type="range" id="protein-importance" min="0" max="100" value="50">
+                        <span id="protein-value">50%</span>
+                    </div>
+
+                    <div class="quiz-group">
+                        <label>Carbs:</label>
+                        <input type="range" id="carbs-importance" min="0" max="100" value="50">
+                        <span id="carbs-value">50%</span>
+                    </div>
+
+                    <div class="quiz-group">
+                        <label>Fat:</label>
+                        <input type="range" id="fat-importance" min="0" max="100" value="50">
+                        <span id="fat-value">50%</span>
+                    </div>
+                </div>
+
+                <div id="score-section">
+                    <button id="calculate-score">See How Accurate You Were</button>
+                    <p id="score-result"></p>
+                    <p id="diabetes-feedback"></p>
+                </div>
+            </section>
+
+
             <section id="scrolly">
                 <figure class="sticky">
                     <div class="scrolly-instructions">
@@ -78,6 +153,8 @@
                     </div>
                     <div class="viz" id="glucose_viz"></div>
                 </figure>
+
+                
 
                 <article>
                     <div class="step" data-step="1">
@@ -98,60 +175,54 @@
                     <div class="step" data-step="2">
                         <h2>Day 2</h2>
                         <p>
-                            On Day 2, people with <strong>higher BMI</strong> tend to have <strong>bigger
-                            spikes</strong> in blood sugar after eating. This suggests
-                            that body weight may impact how the body processes
-                            glucose, possibly due to differences in insulin
-                            sensitivity. The data shows a consistent trend where
-                            individuals with a higher BMI experience prolonged
-                            spikes compared to those with a lower BMI.
+                            On Day 2, our data reveals a surprising trend: participants with <strong>moderately high BMIs</strong> actually 
+                            experienced <strong>lower glucose spikes</strong> compared to both lower and very high BMI groups. 
+                            This suggests that metabolic health is influenced by more than just BMI—factors like diet composition, 
+                            muscle mass, and insulin sensitivity may play a significant role in glucose regulation.
                         </p>
                     </div>
                     <div class="step" data-step="3">
                         <h2>Day 3</h2>
                         <p>
-                            Day 3 shows that <strong>younger participants</strong> often have
-                            <strong>larger spikes</strong>, which could mean metabolism and
-                            insulin response change with age. While older
-                            participants had steadier glucose levels, younger
-                            individuals saw more fluctuations, possibly due to
-                            higher metabolic rates or different dietary habits.
+                            On Day 3, our data reveals that <strong>older participants</strong> tend to have
+                            <strong>larger glucose spikes</strong> compared to younger individuals. 
+                            This suggests that with age, <strong>insulin sensitivity may decline</strong>, leading 
+                            to slower glucose regulation. Younger participants generally experienced 
+                            <strong>smaller fluctuations</strong>, potentially due to more efficient glucose metabolism 
+                            and better insulin response.
                         </p>
                     </div>
+                    
                     <div class="step" data-step="4">
                         <h2>Day 4</h2>
                         <p>
-                            <strong>Poor gut health</strong> is once again linked to <strong>higher blood
-                            sugar spikes</strong> on Day 4, highlighting how digestion
-                            and gut bacteria may influence glucose levels.
-                            Participants with weaker gut microbiomes saw more
-                            extreme changes, while those with better gut health
-                            had more stable glucose responses.
+                            On Day 4, our data reveals a surprising trend: participants with 
+                            <strong>moderate gut health</strong> had <strong>higher average glucose spikes</strong> 
+                            than both those with poor and healthy gut microbiomes. This suggests that 
+                            gut health does not follow a simple "better is always better" trend, while 
+                            <strong>healthy gut microbiomes</strong> are linked to <strong>more stable glucose levels</strong>, 
+                            moderate gut health may indicate microbiome variability that impacts glucose regulation.
                         </p>
                     </div>
                     <div class="step" data-step="5">
                         <h2>Day 5</h2>
                         <p>
-                            A clear pattern is emerging—participants with
-                        <strong>healthier gut microbiomes</strong> continue to have smaller
-                            and more </strong>stable blood sugar changes</strong>. This reinforces
-                            the idea that gut bacteria play a key role in how
-                            efficiently the body processes sugar, potentially
-                            reducing glucose spikes over time.
+                            Our data shows trends that among <strong>non-diabetic</strong> and <strong>pre-diabetic</strong> participants, 
+                            <strong>females</strong>  tend to have <strong>lower average glucose spikes</strong>, whereas among those with <strong>type 2 diabetes</strong>, 
+                            the <strong>opposite trend is observed</strong>.
                         </p>
                     </div>
                     <div class="step" data-step="6">
                         <h2>Day 6</h2>
                         <p>
-                            By Day 6, <strong>blood sugar responses seem more
-                            predictable</strong>, suggesting that diet and routine play a
-                            big role in glucose stability over time. </strong>Many
-                            participants who had unstable glucose spikes earlier
-                            in the study now show more consistent patterns,</strong>
-                            which may be due to dietary adjustments or metabolic
-                            adaptation.
+                            By Day 6, blood sugar responses differ significantly by diabetic status. 
+                            <strong>Non-diabetic participants</strong> generally maintain <strong>lower and more stable glucose levels</strong>, 
+                            while <strong>pre-diabetic</strong> and <strong>type 2 diabetic participants</strong> experience 
+                            <strong>larger and more variable spikes</strong>. This suggests that underlying metabolic differences, 
+                            including insulin resistance, play a key role in glucose regulation over time.
                         </p>
                     </div>
+                    
                     <div class="step" data-step="7">
                         <h2>Day 7</h2>
                         <p>
@@ -166,24 +237,22 @@
                     <div class="step" data-step="8">
                         <h2>Day 8</h2>
                         <p>
-                            On Day 8, glucose spikes start to follow clearer
-                            patterns, showing that some participants may be
-                            settling into a steady metabolic response. This
-                            could indicate that the body adapts to dietary
-                            patterns over time, leading to more predictable
-                            blood sugar control.
+                            On Day 8, glucose spikes start to follow <strong>clearer patterns</strong>, suggesting that 
+                            some participants may be settling into a <strong>steady metabolic response</strong>. 
+                            This could indicate that the body <strong>adapts to dietary patterns over time</strong>, 
+                            leading to more <strong>predictable blood sugar control</strong>.
                         </p>
                     </div>
                     <div class="step" data-step="9">
                         <h2>Day 9</h2>
                         <p>
-                            The trends seen earlier repeat on Day 9, <strong>reinforcing</strong>
-                            the idea that <strong>blood sugar responses are unique to
-                            each person and shaped by factors like BMI, gut
-                            health, and diet</strong>. Individuals with consistent
-                            dietary habits saw fewer fluctuations, while those
-                            with varying meals continued to experience irregular
-                            spikes.
+                            The trends seen earlier repeat on Day 9, reinforcing the idea that 
+                            <strong>blood sugar responses vary based on diabetic status</strong> and are further shaped 
+                            by factors like BMI, gut health, and diet. <strong>Non-diabetic participants</strong> generally 
+                            maintain lower and more stable glucose levels, while <strong>pre-diabetic</strong> and 
+                            <strong>type 2 diabetic individuals</strong> continue to experience larger spikes. 
+                            Additionally, individuals with <strong>consistent dietary habits</strong> show fewer fluctuations, 
+                            while those with varying meals experience more irregular glucose patterns.
                         </p>
                     </div>
                     <div class="step" data-step="10">
@@ -205,10 +274,8 @@
             <section class="generic" id="transition">
                 <h2>From Glucose to Macronutrients</h2>
                 <p>
-                    Diet plays a very crucial role in this process as different foods affect glucose levels in unique ways.
-                    Everyone’s body responds to food differently and can cause different levels of glucose spikes. 
-                    By recognizing how fat, sugar, and carbohydrates impact blood sugar, we gain a better understanding
-                     of glucose patterns amongst different diabetic status. The next visualization explores these effects in more detail.
+                    Now that we've examined glucose patterns over time, let's
+                    explore how different macronutrients affect glucose spikes.
                 </p>
             </section>
 
