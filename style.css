@@ -506,7 +506,7 @@ ul li {
 /* Score Section */
 #score-section {
     margin-top: 20px;
-    text-align: center; /* Ensures button and score are centered */
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -522,7 +522,7 @@ ul li {
     cursor: pointer;
     transition: background 0.3s ease;
     display: block;
-    margin: 0 auto; /* Ensures button centers inside parent */
+    margin: 0 auto;
 }
 
 #calculate-score:hover {
@@ -534,22 +534,75 @@ ul li {
     font-size: 1.2em;
     font-weight: bold;
     color: #473b33;
-    text-align: center; /* Ensure text stays centered */
+    text-align: center;
 }
 
-/* Error Message - No Box, No Border, Bold, and Aligned */
+/* Standardized Error Box Formatting */
 .error-box {
     font-size: 1em;
     font-weight: bold;
     color: #473b33;
     text-align: left;
-    margin-top: -5px; /* Moves text closer to paragraph */
+    margin-top: 10px; /* Space between text and error message */
     width: 100%; /* Ensures alignment with paragraph width */
     max-width: 600px; /* Matches paragraph width */
-    margin-left: auto; /* Aligns it with paragraph text */
-    margin-right: auto; /* Centers if needed */
+    margin-left: 0; /* Aligns it with paragraph text */
     display: block; /* Ensures it behaves like a paragraph */
     border: none !important; /* Ensures no border is applied */
     background: none !important; /* Removes any inherited background */
     padding: 0 !important; /* Resets any padding */
 }
+
+/* Ensure error box does not shift under the dividing line */
+.step, .step2 {
+    position: relative;
+}
+
+.error-box strong {
+    display: block; /* Ensures "Your Prediction was off by X%" appears on a new line */
+}
+
+/* Quiz Section Styling */
+.quiz-question {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+/* Ensure all headers in the quiz section are the same size */
+#quiz-section h2,
+#quiz-section h3 {
+    font-size: 1.2em; /* Keep everything uniform */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Styling for Submit Button */
+#calculate-score {
+    background-color: #473b33;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+
+#calculate-score:hover {
+    background-color: #d6ccc2;
+}
+
+#score-result, #diabetes-feedback {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Reduce font size for diabetes question text */
+#diabetes-question p {
+    font-size: 1em; /* Matches other headers */
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+

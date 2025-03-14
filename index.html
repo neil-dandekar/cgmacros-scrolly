@@ -68,7 +68,7 @@
                 </div>
             </section>
 
-            <!-- Quiz Section -->
+           <!-- Quiz Section -->
             <section id="quiz-section">
                 <h2>How much do these factors affect glucose spikes?</h2>
                 <p>Adjust the sliders to indicate how important each factor is.</p>
@@ -99,8 +99,22 @@
                     </div>
                 </div>
 
-                <h3>Food Macronutrients</h3>
+                <h3>Which group do you think has the highest glucose spikes?</h3>
+                <div id="diabetes-question" class="quiz-question">
+                    <label>
+                        <input type="radio" name="diabetes-choice" value="type1"> Type 1 Diabetics
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="diabetes-choice" value="type2"> Type 2 Diabetics
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="diabetes-choice" value="pre"> Pre-Diabetics
+                    </label>
+                </div>
 
+                <h3>Food Macronutrients</h3>
                 <div class="quiz-container">
                     <div class="quiz-group">
                         <label>Protein:</label>
@@ -120,12 +134,13 @@
                         <span id="fat-value">50%</span>
                     </div>
                 </div>
-            </section>
 
-            <div id="score-section">
-                <button id="calculate-score">See How Accurate You Were</button>
-                <p id="score-result"></p>
-            </div>
+                <div id="score-section">
+                    <button id="calculate-score">See How Accurate You Were</button>
+                    <p id="score-result"></p>
+                    <p id="diabetes-feedback"></p>
+                </div>
+            </section>
 
 
             <section id="scrolly">
@@ -192,12 +207,9 @@
                     <div class="step" data-step="5">
                         <h2>Day 5</h2>
                         <p>
-                            A clear pattern is emerging: participants with
-                        <strong>healthier gut microbiomes</strong> continue to have smaller
-                            and more </strong>stable blood sugar changes</strong>. This reinforces
-                            the idea that gut bacteria play a key role in how
-                            efficiently the body processes sugar, potentially
-                            reducing glucose spikes over time.
+                            Our data shows trends that among <strong>non-diabetic</strong> and <strong>pre-diabetic</strong> participants, 
+                            <strong>females</strong>  tend to have <strong>lower average glucose spikes</strong>, whereas among those with <strong>type 2 diabetes</strong>, 
+                            the <strong>opposite trend is observed</strong>.
                         </p>
                     </div>
                     <div class="step" data-step="6">

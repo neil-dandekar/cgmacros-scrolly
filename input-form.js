@@ -185,7 +185,6 @@ function showError(fieldId, message) {
 document.addEventListener("DOMContentLoaded", function () {
     const sliders = ["bmi", "age", "gut", "gender", "protein", "carbs", "fat"];
 
-    // True importance scores based on research (0-100 scale)
     const correctWeights = {
         bmi: 85,
         age: 65,
@@ -196,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fat: 40
     };
 
-    let userErrors = {}; // Stores how far off the user was
+    let userErrors = {};
 
     // Real-time slider updates
     sliders.forEach((factor) => {
@@ -208,7 +207,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Calculate accuracy score and store errors
     document.getElementById("calculate-score").addEventListener("click", function () {
         let totalDifference = 0;
         let maxDifference = 0;
@@ -219,72 +217,73 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let difference = Math.abs(userValue - correctValue);
             totalDifference += difference;
-            maxDifference += 100; // Each factor max difference is 100
-
-            // Store how far they were off
+            maxDifference += 100;
             userErrors[factor] = difference;
         });
 
-        // Convert to a percentage score
         let accuracyScore = Math.round((1 - totalDifference / maxDifference) * 100);
+        let feedbackMessage = accuracyScore > 80 ? "Great job!" :
+                              accuracyScore > 60 ? "Not bad, but some factors could use adjusting." :
+                              "There's room for improvement—review the visualizations!";
 
-        // Generate feedback message
-        let feedbackMessage = "";
-        if (accuracyScore > 80) {
-            feedbackMessage = "Great job! You have a strong understanding of glucose spikes.";
-        } else if (accuracyScore > 60) {
-            feedbackMessage = "Not bad! You got most factors right but some could use tweaking.";
-        } else {
-            feedbackMessage = "Looks like there’s room for improvement. Check out the explanations in the visualization!";
-        }
-
-        // Display the score
         document.getElementById("score-result").innerHTML =
             `Your accuracy score: <strong>${accuracyScore}%</strong>. ${feedbackMessage}`;
 
-        // Store errors globally for later reference in scrolling
-        window.userErrors = userErrors;
+        // **Diabetes Quiz Evaluation**
+        const correctDiabetesAnswer = "type2";
+        const selectedDiabetes = document.querySelector('input[name="diabetes-choice"]:checked');
 
-        // Call function to display errors under each day
+        if (!selectedDiabetes) {
+            document.getElementById("diabetes-feedback").innerText = "Please select an answer for the diabetes question.";
+        } else if (selectedDiabetes.value === correctDiabetesAnswer) {
+            document.getElementById("diabetes-feedback").innerText = "✅ Correct! Type 2 diabetics have the highest glucose spikes.";
+        } else {
+            document.getElementById("diabetes-feedback").innerText = "❌ Not quite! Type 2 diabetics tend to have the highest glucose spikes.";
+        }
+
+        window.userErrors = userErrors;
         updateErrorMessages();
     });
 
-    // Function to inject errors dynamically under each day
     function updateErrorMessages() {
         let errorMessages = {
-            2: `Your BMI prediction was off by <strong>${window.userErrors?.bmi || 0}%</strong>.`,
-            3: `Your Age prediction was off by <strong>${window.userErrors?.age || 0}%</strong>.`,
-            4: `Your Gut Microbiome prediction was off by <strong>${window.userErrors?.gut || 0}%</strong>.`,
-            5: `Your Gender prediction was off by <strong>${window.userErrors?.gender || 0}%</strong>.`,
-            6: `Your Protein prediction was off by <strong>${window.userErrors?.protein || 0}%</strong>.`,
-            7: `Your Carbs prediction was off by <strong>${window.userErrors?.carbs || 0}%</strong>.`,
-            8: `Your Fat prediction was off by <strong>${window.userErrors?.fat || 0}%</strong>.`
+            2: `<strong>Your BMI prediction was off by <strong>${window.userErrors?.bmi || 0}%</strong>`,
+            3: `<strong>Your Age prediction was off by <strong>${window.userErrors?.age || 0}%</strong>`,
+            4: `<strong>Your Gut Microbiome prediction was off by <strong>${window.userErrors?.gut || 0}%</strong>`,
+            5:  `<strong>Your Gender prediction was off by <strong>${window.userErrors?.gender || 0}%</strong>`,
+            // 6: `</strong>Your Diabetes Status prediction was off.`,
+            // 7: `<strong>Day 7: Pre-Diabetic Prediction</strong><br>Your Pre-Diabetic prediction was off.`,
+            // 9: `<strong>Day 9: Diabetic Status (All)</strong><br>Your prediction of diabetic status impact was off.`,
+            6: `</strong>Your prediction of diabetic status impact was off.`,
         };
-    
+
         document.querySelectorAll(".step").forEach((stepElement, index) => {
             let stepNumber = index + 1;
-    
-            // Find the paragraph inside the step
             let paragraph = stepElement.querySelector("p");
-    
-            if (!paragraph) return; // Skip if no paragraph found
-    
-            // Find or create error message container
-            let existingErrorBox = stepElement.querySelector(".error-box");
-            if (!existingErrorBox) {
-                existingErrorBox = document.createElement("p");
-                existingErrorBox.classList.add("error-box");
-                paragraph.insertAdjacentElement("afterend", existingErrorBox); // Place it directly under the paragraph
-            }
-    
-            // Update error message for this step
+            if (!paragraph) return;
+
+            let existingErrorBox = stepElement.querySelector(".error-box") || document.createElement("p");
+            existingErrorBox.classList.add("error-box");
+            paragraph.insertAdjacentElement("afterend", existingErrorBox);
             existingErrorBox.innerHTML = errorMessages[stepNumber] || "";
         });
+
+        // Scatterplot error messages
+        let scatterErrorMessages = {
+            2: `<strong>Your Protein prediction was off by <strong>${window.userErrors?.protein || 0}%</strong>`,
+            3: `<strong>Your Carbohydrate prediction was off by <strong>${window.userErrors?.carbs || 0}%</strong>`,
+            4: `<strong>Your Fat prediction was off by <strong>${window.userErrors?.fat || 0}%</strong>`,
+        };
+
+        document.querySelectorAll(".step2").forEach((stepElement, index) => {
+            let stepNumber = index + 2; // Step2 starts at 2
+            let paragraph = stepElement.querySelector("p");
+            if (!paragraph) return;
+
+            let existingErrorBox = stepElement.querySelector(".error-box") || document.createElement("p");
+            existingErrorBox.classList.add("error-box");
+            paragraph.insertAdjacentElement("afterend", existingErrorBox);
+            existingErrorBox.innerHTML = scatterErrorMessages[stepNumber] || "";
+        });
     }
-    
 });
-
-
-
-
-
