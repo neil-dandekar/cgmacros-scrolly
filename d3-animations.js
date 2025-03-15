@@ -391,6 +391,46 @@ function createScatterPlots() {
             .style("font-weight", "bold")
             .text("Glucose Spike (mg/dL)");
 
+        // line of best fit
+        const diabeticStatus = [
+            "Non-Diabetic",
+            "Pre-Diabetic",
+            "Type 2 Diabetic",
+        ];
+
+        diabeticStatus.forEach((status) => {
+            // Filter data for this status
+            const statusData = data.filter((d) => d.diabetic_status === status);
+
+            // Calculate regression
+            const regression = calculateRegression(statusData, nutrientType);
+
+            // Create line generator
+            const line = d3
+                .line()
+                .x((d) => xScale(d[0]))
+                .y((d) => yScale(d[1]));
+
+            // Add the regression line
+            svg.append("path")
+                .datum(regression.points)
+                .attr("class", "regression-line")
+                .attr("fill", "none")
+                .attr("stroke", colorScale(status))
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", function () {
+                    return this.getTotalLength();
+                })
+                .attr("stroke-dashoffset", function () {
+                    return this.getTotalLength();
+                })
+                .attr("d", line)
+                .transition()
+                .delay(500) // Wait for scatter plot to appear
+                .duration(1000)
+                .attr("stroke-dashoffset", 0);
+        });
+
         let currentlySelectedStatus = null;
 
         // Background rectangle for click exiting
@@ -452,46 +492,6 @@ function createScatterPlots() {
                 tooltip.style("display", "none");
                 d3.select(this).style("opacity", 0.6);
             });
-
-        // line of best fit
-        const diabeticStatus = [
-            "Non-Diabetic",
-            "Pre-Diabetic",
-            "Type 2 Diabetic",
-        ];
-
-        diabeticStatus.forEach((status) => {
-            // Filter data for this status
-            const statusData = data.filter((d) => d.diabetic_status === status);
-
-            // Calculate regression
-            const regression = calculateRegression(statusData, nutrientType);
-
-            // Create line generator
-            const line = d3
-                .line()
-                .x((d) => xScale(d[0]))
-                .y((d) => yScale(d[1]));
-
-            // Add the regression line
-            svg.append("path")
-                .datum(regression.points)
-                .attr("class", "regression-line")
-                .attr("fill", "none")
-                .attr("stroke", colorScale(status))
-                .attr("stroke-width", 2)
-                .attr("stroke-dasharray", function () {
-                    return this.getTotalLength();
-                })
-                .attr("stroke-dashoffset", function () {
-                    return this.getTotalLength();
-                })
-                .attr("d", line)
-                .transition()
-                .delay(500) // Wait for scatter plot to appear
-                .duration(1000)
-                .attr("stroke-dashoffset", 0);
-        });
 
         addLegend(svg);
     }

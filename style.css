@@ -232,6 +232,7 @@ figure {
 }
 .step2:last-child {
     margin-bottom: 0;
+    
 }
 .step2 h2,
 .step2 p {
@@ -254,7 +255,15 @@ figure {
     border-left-color: var(--color-text);
     color: var(--color-text);
 }
-
+.step2 p {
+    font-size: medium;
+}
+.step2 .error-box {
+    display: block; /* Ensure it's treated as a block-level element */
+    margin-top: 18px;
+    font-size: medium;
+    margin-left: 8px;
+}
 /* -------------------------
    Article
 ------------------------- */
