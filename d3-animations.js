@@ -11,7 +11,7 @@ const tooltip = d3.select("#tooltip");
 const gutColors = {
     1: "#A3B18A", // red
     2: "#E3B23C", // yellow
-    3: "#BF616A" , // green
+    3: "#BF616A", // green
 };
 
 const healthLabels = {
@@ -54,7 +54,7 @@ function updateScatterPlot(step) {
 }
 
 // Load the data and initialize the visualization
-d3.csv("newglucosespikedata.csv").then((data) => {
+d3.csv("data/newglucosespikedata.csv").then((data) => {
     data.forEach((d) => {
         d.bmi = +d.bmi;
         d.gut_microbiome_health = +d.gut_microbiome_health;
@@ -333,7 +333,7 @@ function createScatterPlots() {
         .domain(["Non-Diabetic", "Pre-Diabetic", "Type 2 Diabetic"])
         .range(["#1f77b4", "#ff7f0e", "#2ca02c"]);
 
-    d3.csv("meal_averages.csv").then(function (data) {
+    d3.csv("data/meal_averages.csv").then(function (data) {
         // Create scatter plots for each macro
         createMacroPlot(data, "Protein", "#scatter1");
         createMacroPlot(data, "Carbs", "#scatter2");
