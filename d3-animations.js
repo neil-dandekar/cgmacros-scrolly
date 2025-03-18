@@ -32,24 +32,18 @@ function updateDay(day) {
 }
 
 function updateScatterPlot(step) {
-    // Hide all plots except protein plot initially
     if (step === 1) {
         d3.select("#scatter1").style("display", "block");
         d3.select("#scatter2").style("display", "none");
         d3.select("#scatter3").style("display", "none");
-    }
-    // For other steps, show corresponding plot
-    else if (step > 1) {
+    } else if (step > 1) {
         d3.select("#scatter_viz")
             .selectAll(".scatter-plot")
             .style("display", "none");
 
         d3.select(`#scatter${step}`)
             .style("display", "block")
-            .style("opacity", 0)
-            .transition()
-            .duration(500)
-            .style("opacity", 1);
+            .style("opacity", 1); // No transition here for an instant update
     }
 }
 
@@ -324,8 +318,8 @@ function createScatterPlots() {
         .style("display", "none");
 
     const margin = { top: 40, right: 40, bottom: 60, left: 60 };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const width = 900 - margin.left - margin.right;
+    const height = 550 - margin.top - margin.bottom;
 
     // Common color scale for all plots
     const colorScale = d3
