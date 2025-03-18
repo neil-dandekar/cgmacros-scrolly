@@ -397,7 +397,21 @@ function createScatterPlots() {
             const statusData = data.filter((d) => d.diabetic_status === status);
 
             // Calculate regression
+            // Calculate regression based on your data subset
             const regression = calculateRegression(statusData, nutrientType);
+
+            // Override the regression line endpoints using the xScale's domain
+            const xDomain = xScale.domain();
+            regression.points = [
+                [
+                    xDomain[0],
+                    regression.slope * xDomain[0] + regression.intercept,
+                ],
+                [
+                    xDomain[1],
+                    regression.slope * xDomain[1] + regression.intercept,
+                ],
+            ];
 
             // Create line generator
             const line = d3
@@ -537,8 +551,10 @@ function calculateRegression(data, nutrientType) {
     const intercept = yMean - slope * xMean;
 
     // Generate points for the line
-    const x1 = d3.min(xValues);
-    const x2 = d3.max(xValues);
+    const xDomain = xScale.domain();
+    const x1 = xDomain[0];
+    const x2 = xDomain[1];
+
     const y1 = slope * x1 + intercept;
     const y2 = slope * x2 + intercept;
 
