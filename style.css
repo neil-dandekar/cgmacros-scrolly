@@ -232,7 +232,6 @@ figure {
 }
 .step2:last-child {
     margin-bottom: 0;
-    
 }
 .step2 h2,
 .step2 p {
@@ -563,7 +562,8 @@ ul li {
 }
 
 /* Ensure error box does not shift under the dividing line */
-.step, .step2 {
+.step,
+.step2 {
     position: relative;
 }
 
@@ -603,7 +603,8 @@ ul li {
     background-color: #d6ccc2;
 }
 
-#score-result, #diabetes-feedback {
+#score-result,
+#diabetes-feedback {
     font-weight: bold;
     margin-top: 10px;
 }
