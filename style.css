@@ -23,13 +23,21 @@ body {
     color: var(--color-text);
 }
 
+#factors {
+    margin-bottom: 20px;
+}
+
+#spiky {
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
 /* -------------------------
    Sections & Intro
 ------------------------- */
 section.generic {
     width: 700px;
     margin: 0 auto 150px;
-    padding-top: 40px;
+    /* padding-top: 40px; */
 }
 
 section#intro {
@@ -489,8 +497,8 @@ ul li {
 /* Smaller, compact quiz section */
 #quiz-section {
     width: 600px;
-    margin: 0px auto 150px auto;
-    padding-top: 20px;
+    margin: 80px auto;
+    padding: 20px;
     background: var(--color-bg);
     border-radius: 5px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
