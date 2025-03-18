@@ -489,9 +489,8 @@ ul li {
 /* Smaller, compact quiz section */
 #quiz-section {
     width: 600px;
-    margin: 0px auto;
-    padding-top: 0;
-    /* padding: 20px; */
+    margin: 0px auto 150px auto;
+    padding-top: 20px;
     background: var(--color-bg);
     border-radius: 5px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
