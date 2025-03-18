@@ -20,9 +20,8 @@
     <body>
         <main>
             <section class="generic" id="intro">
-                <h1>
-                    One Meal, Different Spikes: How BMI, Gut Health, and Food
-                    Macros Affect Your Blood Sugar
+                <h1 id="title">
+                    You Might Have Diabetes ... You Just Don't Know It Yet.
                 </h1>
                 <p class="byline">
                     <a
@@ -49,68 +48,184 @@
                 </p>
 
                 <p>
-                    One in three Americans do not realize they have diabetes,
-                    and many of us personally know a friend or relative
-                    affected, yet there are few accessible tools that clearly
-                    show how factors like BMI, age, and meal macros contribute
-                    to glucose spikes. Therefore, we built this webpage to raise
-                    awareness of potential health risks and empower individuals
-                    to take control of their well-being by exploring these
-                    critical influences on blood sugar—and we’re adding a
-                    machine learning model where you can input your custom
-                    statistics to receive an estimated average glucose spike.
+                    <strong
+                        >One in five Americans are unaware they have diabetes
+                        and more than eight in ten adults are unaware they are
+                        pre-diabetic.
+                    </strong>
+                    Our team, The Avengers, have addressed the issue with this
+                    site, aimed at educating about the factors which contribute
+                    to diabetes. Scroll along as we demonstrate surprising
+                    findings from the
+                    <a href="https://physionet.org/content/cgmacros/1.0.0/"
+                        >CGMacros Dataset</a
+                    >, a 10-day collection of health data from over 40
+                    participants.
                 </p>
-                <p>We hope you enjoy.</p>
-                <p class="seperator"></p>
+
+                <svg
+                    id="titlegraphic"
+                    viewBox="0 0 100 40"
+                    width="100%"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <!-- Define reusable person shape -->
+                    <defs>
+                        <g id="person-filled">
+                            <circle cx="10" cy="5" r="4" />
+                            <!-- Floating head -->
+                            <rect x="5" y="10" width="10" height="10" rx="2" />
+                            <!-- Upper body (rounded) -->
+                            <rect
+                                x="6.5"
+                                y="20"
+                                width="7"
+                                height="10"
+                                rx="0"
+                                ry="3"
+                            />
+                            <!-- Lower body (rounded bottom) -->
+                        </g>
+                        <g id="person-outline">
+                            <circle
+                                cx="10"
+                                cy="5"
+                                r="4"
+                                fill="var(--color-fill)"
+                                stroke="var(--color-fill)"
+                                stroke-width="0.5"
+                            />
+                            <rect
+                                x="5"
+                                y="10"
+                                width="10"
+                                height="10"
+                                rx="2"
+                                fill="var(--color-fill)"
+                                stroke="var(--color-fill)"
+                                stroke-width="0.5"
+                            />
+                            <rect
+                                x="6.5"
+                                y="20"
+                                width="7"
+                                height="10"
+                                rx="0"
+                                ry="3"
+                                fill="var(--color-fill)"
+                                stroke="var(--color-fill)"
+                                stroke-width="0.5"
+                            />
+                        </g>
+                    </defs>
+
+                    <use href="#person-outline" x="0" />
+                    <use href="#person-outline" x="20" />
+
+                    <!-- First person (Highlighted) -->
+                    <use
+                        href="#person-filled"
+                        x="40"
+                        fill="var(--color-text)"
+                    />
+
+                    <!-- Other four people (Filled with color-fill) -->
+                    <use href="#person-outline" x="60" />
+                    <use href="#person-outline" x="80" />
+                </svg>
+
                 <div class="scroll-down">
                     <span class="scroll-text">scroll down</span>
                     <span class="scroll-arrow">&#8595;</span>
                 </div>
             </section>
 
-           <!-- Quiz Section -->
+            <!-- Quiz Section -->
             <section id="quiz-section">
                 <h2>How much do these factors affect glucose spikes?</h2>
-                <p>Adjust the sliders to indicate how important each factor is.</p>
+                <p>
+                    Adjust the sliders to indicate how important each factor is.
+                </p>
 
                 <div class="quiz-container">
                     <div class="quiz-group">
                         <label>BMI:</label>
-                        <input type="range" id="bmi-importance" min="0" max="100" value="50">
+                        <input
+                            type="range"
+                            id="bmi-importance"
+                            min="0"
+                            max="100"
+                            value="50"
+                        />
                         <span id="bmi-value">50%</span>
                     </div>
 
                     <div class="quiz-group">
                         <label>Age:</label>
-                        <input type="range" id="age-importance" min="0" max="100" value="50">
+                        <input
+                            type="range"
+                            id="age-importance"
+                            min="0"
+                            max="100"
+                            value="50"
+                        />
                         <span id="age-value">50%</span>
                     </div>
 
                     <div class="quiz-group">
                         <label>Gut Microbiome Health:</label>
-                        <input type="range" id="gut-importance" min="0" max="100" value="50">
+                        <input
+                            type="range"
+                            id="gut-importance"
+                            min="0"
+                            max="100"
+                            value="50"
+                        />
                         <span id="gut-value">50%</span>
                     </div>
 
                     <div class="quiz-group">
                         <label>Gender:</label>
-                        <input type="range" id="gender-importance" min="0" max="100" value="50">
+                        <input
+                            type="range"
+                            id="gender-importance"
+                            min="0"
+                            max="100"
+                            value="50"
+                        />
                         <span id="gender-value">50%</span>
                     </div>
                 </div>
 
-                <h3>Which group do you think has the highest glucose spikes?</h3>
+                <h3>
+                    Which group do you think has the highest glucose spikes?
+                </h3>
                 <div id="diabetes-question" class="quiz-question">
                     <label>
-                        <input type="radio" name="diabetes-choice" value="type1"> Non-Diabetics
+                        <input
+                            type="radio"
+                            name="diabetes-choice"
+                            value="type1"
+                        />
+                        Non-Diabetics
                     </label>
-                    <br>
+                    <br />
                     <label>
-                        <input type="radio" name="diabetes-choice" value="type2"> Type 2 Diabetics
+                        <input
+                            type="radio"
+                            name="diabetes-choice"
+                            value="type2"
+                        />
+                        Type 2 Diabetics
                     </label>
-                    <br>
+                    <br />
                     <label>
-                        <input type="radio" name="diabetes-choice" value="pre"> Pre-Diabetics
+                        <input
+                            type="radio"
+                            name="diabetes-choice"
+                            value="pre"
+                        />
+                        Pre-Diabetics
                     </label>
                 </div>
 
@@ -118,30 +233,49 @@
                 <div class="quiz-container">
                     <div class="quiz-group">
                         <label>Protein:</label>
-                        <input type="range" id="protein-importance" min="0" max="100" value="50">
+                        <input
+                            type="range"
+                            id="protein-importance"
+                            min="0"
+                            max="100"
+                            value="50"
+                        />
                         <span id="protein-value">50%</span>
                     </div>
 
                     <div class="quiz-group">
                         <label>Carbs:</label>
-                        <input type="range" id="carbs-importance" min="0" max="100" value="50">
+                        <input
+                            type="range"
+                            id="carbs-importance"
+                            min="0"
+                            max="100"
+                            value="50"
+                        />
                         <span id="carbs-value">50%</span>
                     </div>
 
                     <div class="quiz-group">
                         <label>Fat:</label>
-                        <input type="range" id="fat-importance" min="0" max="100" value="50">
+                        <input
+                            type="range"
+                            id="fat-importance"
+                            min="0"
+                            max="100"
+                            value="50"
+                        />
                         <span id="fat-value">50%</span>
                     </div>
                 </div>
 
                 <div id="score-section">
-                    <button id="calculate-score">See How Accurate You Were</button>
+                    <button id="calculate-score">
+                        See How Accurate You Were
+                    </button>
                     <p id="score-result"></p>
                     <p id="diabetes-feedback"></p>
                 </div>
             </section>
-
 
             <section id="scrolly">
                 <figure class="sticky">
@@ -154,8 +288,6 @@
                     <div class="viz" id="glucose_viz"></div>
                 </figure>
 
-                
-
                 <article>
                     <div class="step" data-step="1">
                         <h2>Day 1</h2>
@@ -163,108 +295,160 @@
                             Glucose levels on Day 1 show a wide range of
                             responses, suggesting that factors like BMI, gut
                             health, and lifestyle choices affect how the body
-                            handles sugar. 
-                            <strong>Some participants had stable levels,
-                                while others experienced sharp spikes</strong>, highlighting
-                            how personal health factors can influence glucose
-                            regulation from the start.
-                            <strong>Diabetic participants</strong> showed <strong>larger spikes</strong> than non-diabetics, 
-                                indicating pre-existing insulin resistance.</span>
+                            handles sugar.
+                            <strong
+                                >Some participants had stable levels, while
+                                others experienced sharp spikes</strong
+                            >, highlighting how personal health factors can
+                            influence glucose regulation from the start.
+                            <strong>Diabetic participants</strong> showed
+                            <strong>larger spikes</strong> than non-diabetics,
+                            indicating pre-existing insulin resistance.
                         </p>
                     </div>
                     <div class="step" data-step="2">
                         <h2>Day 2</h2>
                         <p>
-                            On Day 2, our data reveals a surprising trend: participants with <strong>moderately high BMIs</strong> actually 
-                            experienced <strong>lower glucose spikes</strong> compared to both lower and very high BMI groups. 
-                            This suggests that metabolic health is influenced by more than just BMI—factors like diet composition, 
-                            muscle mass, and insulin sensitivity may play a significant role in glucose regulation.
+                            On Day 2, our data reveals a surprising trend:
+                            participants with
+                            <strong>moderately high BMIs</strong> actually
+                            experienced
+                            <strong>lower glucose spikes</strong> compared to
+                            both lower and very high BMI groups. This suggests
+                            that metabolic health is influenced by more than
+                            just BMI—factors like diet composition, muscle mass,
+                            and insulin sensitivity may play a significant role
+                            in glucose regulation.
                         </p>
                     </div>
                     <div class="step" data-step="3">
                         <h2>Day 3</h2>
                         <p>
-                            On Day 3, our data reveals that <strong>older participants</strong> tend to have
-                            <strong>larger glucose spikes</strong> compared to younger individuals. 
-                            This suggests that with age, <strong>insulin sensitivity may decline</strong>, leading 
-                            to slower glucose regulation. Younger participants generally experienced 
-                            <strong>smaller fluctuations</strong>, potentially due to more efficient glucose metabolism 
-                            and better insulin response.
+                            On Day 3, our data reveals that
+                            <strong>older participants</strong> tend to have
+                            <strong>larger glucose spikes</strong> compared to
+                            younger individuals. This suggests that with age,
+                            <strong>insulin sensitivity may decline</strong>,
+                            leading to slower glucose regulation. Younger
+                            participants generally experienced
+                            <strong>smaller fluctuations</strong>, potentially
+                            due to more efficient glucose metabolism and better
+                            insulin response.
                         </p>
                     </div>
-                    
+
                     <div class="step" data-step="4">
                         <h2>Day 4</h2>
                         <p>
-                            On Day 4, our data reveals a surprising trend: participants with 
-                            <strong>moderate gut health</strong> had <strong>higher average glucose spikes</strong> 
-                            than both those with poor and healthy gut microbiomes. This suggests that 
-                            gut health does not follow a simple "better is always better" trend, while 
-                            <strong>healthy gut microbiomes</strong> are linked to <strong>more stable glucose levels</strong>, 
-                            moderate gut health may indicate microbiome variability that impacts glucose regulation.
+                            On Day 4, our data reveals a surprising trend:
+                            participants with
+                            <strong>moderate gut health</strong> had
+                            <strong>higher average glucose spikes</strong>
+                            than both those with poor and healthy gut
+                            microbiomes. This suggests that gut health does not
+                            follow a simple "better is always better" trend,
+                            while
+                            <strong>healthy gut microbiomes</strong> are linked
+                            to <strong>more stable glucose levels</strong>,
+                            moderate gut health may indicate microbiome
+                            variability that impacts glucose regulation.
                         </p>
                     </div>
                     <div class="step" data-step="5">
                         <h2>Day 5</h2>
                         <p>
-                            Our data shows trends that among <strong>non-diabetic</strong> and <strong>pre-diabetic</strong> participants, 
-                            <strong>females</strong>  tend to have <strong>lower average glucose spikes</strong>, whereas among those with <strong>type 2 diabetes</strong>, 
-                            the <strong>opposite trend is observed</strong>.
+                            Our data shows trends that among
+                            <strong>non-diabetic</strong> and
+                            <strong>pre-diabetic</strong> participants,
+                            <strong>females</strong> tend to have
+                            <strong>lower average glucose spikes</strong>,
+                            whereas among those with
+                            <strong>type 2 diabetes</strong>, the
+                            <strong>opposite trend is observed</strong>.
                         </p>
                     </div>
                     <div class="step" data-step="6">
                         <h2>Day 6</h2>
                         <p>
-                            By Day 6, blood sugar responses differ significantly by diabetic status. 
-                            <strong>Non-diabetic participants</strong> generally maintain <strong>lower and more stable glucose levels</strong>, 
-                            while <strong>pre-diabetic</strong> and <strong>type 2 diabetic participants</strong> experience 
-                            <strong>larger and more variable spikes</strong>. This suggests that underlying metabolic differences, 
-                            including insulin resistance, play a key role in glucose regulation over time.
+                            By Day 6, blood sugar responses differ significantly
+                            by diabetic status.
+                            <strong>Non-diabetic participants</strong> generally
+                            maintain
+                            <strong>lower and more stable glucose levels</strong
+                            >, while <strong>pre-diabetic</strong> and
+                            <strong>type 2 diabetic participants</strong>
+                            experience
+                            <strong>larger and more variable spikes</strong>.
+                            This suggests that underlying metabolic differences,
+                            including insulin resistance, play a key role in
+                            glucose regulation over time.
                         </p>
                     </div>
-                    
+
                     <div class="step" data-step="7">
                         <h2>Day 7</h2>
                         <p>
-                            Day 7 highlights a <strong>strong connection between poor
-                            gut health</strong> and sharp <strong>blood sugar spikes, especially
-                            for pre-diabetic participants</strong>. This suggests that
-                            managing gut health could be a critical step in
-                            maintaining stable glucose levels and reducing
-                            diabetes risk.
+                            Day 7 highlights a
+                            <strong
+                                >strong connection between poor gut
+                                health</strong
+                            >
+                            and sharp
+                            <strong
+                                >blood sugar spikes, especially for pre-diabetic
+                                participants</strong
+                            >. This suggests that managing gut health could be a
+                            critical step in maintaining stable glucose levels
+                            and reducing diabetes risk.
                         </p>
                     </div>
                     <div class="step" data-step="8">
                         <h2>Day 8</h2>
                         <p>
-                            On Day 8, glucose spikes start to follow <strong>clearer patterns</strong>, suggesting that 
-                            some participants may be settling into a <strong>steady metabolic response</strong>. 
-                            This could indicate that the body <strong>adapts to dietary patterns over time</strong>, 
-                            leading to more <strong>predictable blood sugar control</strong>.
+                            On Day 8, glucose spikes start to follow
+                            <strong>clearer patterns</strong>, suggesting that
+                            some participants may be settling into a
+                            <strong>steady metabolic response</strong>. This
+                            could indicate that the body
+                            <strong>adapts to dietary patterns over time</strong
+                            >, leading to more
+                            <strong>predictable blood sugar control</strong>.
                         </p>
                     </div>
                     <div class="step" data-step="9">
                         <h2>Day 9</h2>
                         <p>
-                            The trends seen earlier repeat on Day 9, reinforcing the idea that 
-                            <strong>blood sugar responses vary based on diabetic status</strong> and are further shaped 
-                            by factors like BMI, gut health, and diet. <strong>Non-diabetic participants</strong> generally 
-                            maintain lower and more stable glucose levels, while <strong>pre-diabetic</strong> and 
-                            <strong>type 2 diabetic individuals</strong> continue to experience larger spikes. 
-                            Additionally, individuals with <strong>consistent dietary habits</strong> show fewer fluctuations, 
-                            while those with varying meals experience more irregular glucose patterns.
+                            The trends seen earlier repeat on Day 9, reinforcing
+                            the idea that
+                            <strong
+                                >blood sugar responses vary based on diabetic
+                                status</strong
+                            >
+                            and are further shaped by factors like BMI, gut
+                            health, and diet.
+                            <strong>Non-diabetic participants</strong> generally
+                            maintain lower and more stable glucose levels, while
+                            <strong>pre-diabetic</strong> and
+                            <strong>type 2 diabetic individuals</strong>
+                            continue to experience larger spikes. Additionally,
+                            individuals with
+                            <strong>consistent dietary habits</strong> show
+                            fewer fluctuations, while those with varying meals
+                            experience more irregular glucose patterns.
                         </p>
                     </div>
                     <div class="step" data-step="10">
                         <h2>Day 10</h2>
                         <p>
-                            The <strong>final day’s data confirms a strong link between
-                            gut health, BMI, and blood sugar control</strong>. Tracking
-                            these factors over time can provide valuable insight
-                            into long-term health, showing that maintaining a
-                            stable diet and a healthy gut microbiome can lead to
-                            better glucose management and possibly lower
-                            diabetes risk.
+                            The
+                            <strong
+                                >final day’s data confirms a strong link between
+                                gut health, BMI, and blood sugar control</strong
+                            >. Tracking these factors over time can provide
+                            valuable insight into long-term health, showing that
+                            maintaining a stable diet and a healthy gut
+                            microbiome can lead to better glucose management and
+                            possibly lower diabetes risk.
                         </p>
                     </div>
                 </article>
@@ -333,161 +517,180 @@
             <!-- User Input Form Section -->
             <section id="user-form">
                 <div class="form-container">
-                  <h2>Calculate Your Glucose Spike</h2>
-                  <form id="glucose-form">
-                    <fieldset>
-                      <legend>Personal Information</legend>
-                      <div class="form-group">
-                        <label for="height">Height (in inches):</label>
-                        <input
-                          type="number"
-                          id="height"
-                          name="height"
-                          required
-                          placeholder="e.g., 65"
-                          min="1"
-                        />
-                        <small class="error-message"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="weight">Weight (lbs):</label>
-                        <input
-                          type="number"
-                          id="weight"
-                          name="weight"
-                          required
-                          placeholder="e.g., 150"
-                          min="1"
-                        />
-                        <small class="error-message"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="age">Age (years):</label>
-                        <input
-                          type="number"
-                          id="age"
-                          name="age"
-                          required
-                          placeholder="e.g., 30"
-                          min="1"
-                        />
-                        <small class="error-message"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="gender">Gender:</label>
-                        <select id="gender" name="gender" required>
-                          <option value="">Select Gender</option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="other">Other</option>
-                        </select>
-                        <small class="error-message"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="bmi">BMI:</label>
-                        <!-- Make BMI read-only because it is auto-calculated -->
-                        <input
-                          type="number"
-                          id="bmi"
-                          name="bmi"
-                          readonly
-                          placeholder="Auto-calculated"
-                          step="0.1"
-                          min="0"
-                        />
-                        <small class="error-message"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="diabetes">Diabetes Status:</label>
-                        <select id="diabetes" name="diabetes" required>
-                          <option value="">Select Status</option>
-                          <option value="non-diabetic">Non Diabetic</option>
-                          <option value="type1">Type 1</option>
-                          <option value="type2">Type 2</option>
-                        </select>
-                        <small class="error-message"></small>
-                      </div>
-                    </fieldset>
-              
-                    <fieldset>
-                      <legend>Most Recent Meal Macronutrients</legend>
-                      <div class="form-group">
-                        <label for="protein">Protein (g):</label>
-                        <input
-                          type="number"
-                          id="protein"
-                          name="protein"
-                          required
-                          placeholder="grams"
-                          min="0"
-                        />
-                        <small class="error-message"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="carbs">Carbohydrates (g):</label>
-                        <input
-                          type="number"
-                          id="carbs"
-                          name="carbs"
-                          required
-                          placeholder="grams"
-                          min="0"
-                        />
-                        <small class="error-message"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="fats">Fats (g):</label>
-                        <input
-                          type="number"
-                          id="fats"
-                          name="fats"
-                          required
-                          placeholder="grams"
-                          min="0"
-                        />
-                        <small class="error-message"></small>
-                      </div>
-                    </fieldset>
-              
-                    <button type="submit" class="submit-btn">
-                      Calculate Glucose Spike
-                    </button>
-                  </form>
-              
-                  <div id="prediction-output">
-                    <!-- Predicted glucose spike will be displayed here -->
-                     <p id="pred-out-analysis"></p>
-                  </div>
+                    <h2>Calculate Your Glucose Spike</h2>
+                    <form id="glucose-form">
+                        <fieldset>
+                            <legend>Personal Information</legend>
+                            <div class="form-group">
+                                <label for="height">Height (in inches):</label>
+                                <input
+                                    type="number"
+                                    id="height"
+                                    name="height"
+                                    required
+                                    placeholder="e.g., 65"
+                                    min="1"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Weight (lbs):</label>
+                                <input
+                                    type="number"
+                                    id="weight"
+                                    name="weight"
+                                    required
+                                    placeholder="e.g., 150"
+                                    min="1"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age (years):</label>
+                                <input
+                                    type="number"
+                                    id="age"
+                                    name="age"
+                                    required
+                                    placeholder="e.g., 30"
+                                    min="1"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender:</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="bmi">BMI:</label>
+                                <!-- Make BMI read-only because it is auto-calculated -->
+                                <input
+                                    type="number"
+                                    id="bmi"
+                                    name="bmi"
+                                    readonly
+                                    placeholder="Auto-calculated"
+                                    step="0.1"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="diabetes">Diabetes Status:</label>
+                                <select id="diabetes" name="diabetes" required>
+                                    <option value="">Select Status</option>
+                                    <option value="non-diabetic">
+                                        Non Diabetic
+                                    </option>
+                                    <option value="type1">Type 1</option>
+                                    <option value="type2">Type 2</option>
+                                </select>
+                                <small class="error-message"></small>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Most Recent Meal Macronutrients</legend>
+                            <div class="form-group">
+                                <label for="protein">Protein (g):</label>
+                                <input
+                                    type="number"
+                                    id="protein"
+                                    name="protein"
+                                    required
+                                    placeholder="grams"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="carbs">Carbohydrates (g):</label>
+                                <input
+                                    type="number"
+                                    id="carbs"
+                                    name="carbs"
+                                    required
+                                    placeholder="grams"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="fats">Fats (g):</label>
+                                <input
+                                    type="number"
+                                    id="fats"
+                                    name="fats"
+                                    required
+                                    placeholder="grams"
+                                    min="0"
+                                />
+                                <small class="error-message"></small>
+                            </div>
+                        </fieldset>
+
+                        <button type="submit" class="submit-btn">
+                            Calculate Glucose Spike
+                        </button>
+                    </form>
+
+                    <div id="prediction-output">
+                        <!-- Predicted glucose spike will be displayed here -->
+                        <p id="pred-out-analysis"></p>
+                    </div>
                 </div>
-              </section>         
+            </section>
 
             <!-- Final Takeaway Section -->
             <section class="generic" id="takeaway">
                 <div class="form-container">
-                <h2 style="text-align: center;">Our Takeaway</h2>
-                <p>
-                    <strong>The most surprising insight from our data</strong> is that glucose spikes cannot be
-                    attributed to a single, universal factor. <strong>Contrary to common assumptions,</strong> higher
-                    BMI or poor gut health do not always lead to larger spikes. Our visualizations reveal
-                    <strong>counterintuitive patterns</strong>: moderately high BMIs sometimes result in smaller
-                    spikes than very low or very high BMIs, and individuals with "middle" gut health can
-                    experience sharper glucose peaks than those at either extreme.
-                </p>
-                <p>
-                    <strong>These unexpected trends</strong> are brought to life through our
-                    <strong>interactive, day-by-day scrolly charts</strong>, which allow users to toggle between
-                    diabetic statuses, track macro intakes, and observe how different factors interact over time.
-                    By focusing on <strong>specific macronutrients</strong>, the visualizations revealed
-                    underlying trends between different nutrients on glucose spike, while still
-                    showcasing their combined effects, demonstrating how individuals with
-                    <strong>nearly identical meals</strong> can have drastically different glucose responses.
-                </p>
-                <p>
-                    <strong>This challenges the oversimplified view</strong> that blood sugar control depends on a
-                    single factor and highlights the need for <strong>personalized approaches</strong> to diet and
-                    health. Our charts not only make these <strong>complex dynamics</strong> visible but also
-                    empower users to explore their own <strong>unique path</strong> toward better glucose
-                    management.
+                    <h2 style="text-align: center">Our Takeaway</h2>
+                    <p>
+                        <strong
+                            >The most surprising insight from our data</strong
+                        >
+                        is that glucose spikes cannot be attributed to a single,
+                        universal factor.
+                        <strong>Contrary to common assumptions,</strong> higher
+                        BMI or poor gut health do not always lead to larger
+                        spikes. Our visualizations reveal
+                        <strong>counterintuitive patterns</strong>: moderately
+                        high BMIs sometimes result in smaller spikes than very
+                        low or very high BMIs, and individuals with "middle" gut
+                        health can experience sharper glucose peaks than those
+                        at either extreme.
+                    </p>
+                    <p>
+                        <strong>These unexpected trends</strong> are brought to
+                        life through our
+                        <strong>interactive, day-by-day scrolly charts</strong>,
+                        which allow users to toggle between diabetic statuses,
+                        track macro intakes, and observe how different factors
+                        interact over time. By focusing on
+                        <strong>specific macronutrients</strong>, the
+                        visualizations revealed underlying trends between
+                        different nutrients on glucose spike, while still
+                        showcasing their combined effects, demonstrating how
+                        individuals with
+                        <strong>nearly identical meals</strong> can have
+                        drastically different glucose responses.
+                    </p>
+                    <p>
+                        <strong>This challenges the oversimplified view</strong>
+                        that blood sugar control depends on a single factor and
+                        highlights the need for
+                        <strong>personalized approaches</strong> to diet and
+                        health. Our charts not only make these
+                        <strong>complex dynamics</strong> visible but also
+                        empower users to explore their own
+                        <strong>unique path</strong> toward better glucose
+                        management.
                     </p>
                 </div>
             </section>

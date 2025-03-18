@@ -7,6 +7,7 @@
     --color-axis: #e3d5ca; /* Axis color: soft beige */
     --color-border: #473b33; /* Border color: very light grayish tone */
     --color-error: #d9534f;
+    --color-fill: #d6ccc2; /* Text color: darker beige for contrast */
 }
 
 /* -------------------------
@@ -26,14 +27,22 @@ body {
    Sections & Intro
 ------------------------- */
 section.generic {
-    width: 600px;
+    width: 700px;
     margin: 0 auto 150px;
     padding-top: 40px;
 }
 
 section#intro {
-    padding: 30px 0 0 0;
-    margin-bottom: 30px;
+    /* padding: 175px 0 0 0; */
+    min-height: 100vh;
+}
+
+#title {
+    margin-bottom: 10px;
+}
+
+#titlegraphic {
+    margin-top: 40px;
 }
 
 #intro {
@@ -44,12 +53,30 @@ section#intro {
 }
 
 .byline {
-    text-align: center;
-    font-weight: 600; /* Adjust thickness as needed */
-    margin-bottom: 20px; /* Optional spacing */
+    text-align: left; /* Left-align like in the reference */
+    font-size: 0.9em; /* Slightly smaller to match article style */
+    margin-bottom: 20px; /* Proper spacing below */
 }
 
 .byline a {
+    font-weight: 500; /* Bold names */
+    text-decoration: none; /* No underline by default */
+}
+
+.byline a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.byline span {
+    display: block; /* Puts the date on a new line */
+    font-size: 0.85em; /* Slightly smaller for subtle contrast */
+    color: var(
+        --color-text-muted,
+        var(--color-text)
+    ); /* A lighter color if available */
+}
+
+p a {
     text-decoration: underline;
     color: var(--color-text);
 }
@@ -59,12 +86,14 @@ section#intro {
 ------------------------- */
 .scroll-down {
     text-align: center;
-    margin-top: 30px;
+    /* margin-top: 10px; */
+    border-top: var(--color-border);
 }
 
 .scroll-text {
     display: block;
     font-size: 1em;
+    margin-bottom: 10px;
     color: var(--color-text);
 }
 
@@ -86,7 +115,6 @@ section#intro {
 }
 
 /* instructions */
-
 .scrolly-instructions {
     max-width: 600px;
     margin: 40px auto;
@@ -296,13 +324,14 @@ h3 {
     text-align: left;
     margin-bottom: 25px;
 }
-p.seperator {
+/* p.seperator {
     text-align: center;
     font-weight: 700;
     font-size: 1em;
     margin: 50px 0;
     border-bottom: 2px solid var(--color-text);
-}
+} */
+
 p span.label {
     font-weight: 700;
 }
@@ -460,8 +489,9 @@ ul li {
 /* Smaller, compact quiz section */
 #quiz-section {
     width: 600px;
-    margin: 80px auto;
-    padding: 20px;
+    margin: 0px auto;
+    padding-top: 0;
+    /* padding: 20px; */
     background: var(--color-bg);
     border-radius: 5px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
