@@ -9,9 +9,9 @@ const tooltip = d3.select("#tooltip");
 
 // Discrete color mapping for gut health => 1,2,3
 const gutColors = {
-    1: "#A3B18A", // red
-    2: "#E3B23C", // yellow
-    3: "#BF616A", // green
+    1: "#e63946", // red
+    2: "#e9c46a", // yellow
+    3: "#76c893", // green
 };
 
 const healthLabels = {
@@ -325,7 +325,7 @@ function createScatterPlots() {
     const colorScale = d3
         .scaleOrdinal()
         .domain(["Non-Diabetic", "Pre-Diabetic", "Type 2 Diabetic"])
-        .range(["#1f77b4", "#ff7f0e", "#2ca02c"]);
+        .range(["#76c893", "#e9c46a", "#e63946"]);
 
     d3.csv("data/meal_averages.csv").then(function (data) {
         // Create scatter plots for each macro
