@@ -9,9 +9,9 @@ const tooltip = d3.select("#tooltip");
 
 // Discrete color mapping for gut health => 1,2,3
 const gutColors = {
-    1: "#e63946", // red
+    1: "#76c893", // red
     2: "#e9c46a", // yellow
-    3: "#76c893", // green
+    3: "#e63946", // green
 };
 
 const healthLabels = {
