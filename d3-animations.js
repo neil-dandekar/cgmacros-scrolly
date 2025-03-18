@@ -293,7 +293,6 @@ d3.csv("data/newglucosespikedata.csv").then((data) => {
 // ----------------------------------------------------------------------------
 // -----------------------------------  VIZ 2  --------------------------------
 // ----------------------------------------------------------------------------
-
 // Function to create scatter plots
 function createScatterPlots() {
     const scatterViz = d3.select("#scatter_viz");
@@ -385,7 +384,7 @@ function createScatterPlots() {
             .style("font-weight", "bold")
             .text("Glucose Spike (mg/dL)");
 
-        // line of best fit
+        // Line of best fit
         const diabeticStatus = [
             "Non-Diabetic",
             "Pre-Diabetic",
@@ -396,7 +395,6 @@ function createScatterPlots() {
             // Filter data for this status
             const statusData = data.filter((d) => d.diabetic_status === status);
 
-            // Calculate regression
             // Calculate regression based on your data subset
             const regression = calculateRegression(statusData, nutrientType);
 
@@ -441,15 +439,15 @@ function createScatterPlots() {
 
         let currentlySelectedStatus = null;
 
-        // Background rectangle for click exiting
+        // Background rectangle for click exiting (resets filtering)
         svg.append("rect")
             .attr("width", width)
             .attr("height", height)
             .attr("fill", "transparent")
-            .lower()
+            .lower() // ensure it’s behind the circles
             .on("click", function () {
                 currentlySelectedStatus = null;
-                svg.selectAll("circle").style("opacity", 0.6);
+                svg.selectAll("circle").style("opacity", 0.85);
             });
 
         // Add circles
@@ -459,46 +457,50 @@ function createScatterPlots() {
             .append("circle")
             .attr("cx", (d) => xScale(+d[nutrientType]))
             .attr("cy", (d) => yScale(+d.spike))
-            .attr("r", 5)
+            .attr("r", 6) // slightly increased radius from 5 to 6
             .style("fill", (d) => colorScale(d.diabetic_status))
-            .style("opacity", 0.6)
-            // highlight diabetic status group
+            .style("opacity", 0.85) // match first viz default opacity
+            .attr("stroke", "black") // match first viz border color
+            .attr("stroke-width", 1) // default thin border
+
+            // Filtering: on click adjust opacity of non-selected circles
             .on("click", function (event, d) {
                 event.stopPropagation();
                 if (currentlySelectedStatus === d.diabetic_status) {
                     currentlySelectedStatus = null;
-                    svg.selectAll("circle").style("opacity", 0.6);
+                    svg.selectAll("circle").style("opacity", 0.85);
                 } else {
                     currentlySelectedStatus = d.diabetic_status;
                     svg.selectAll("circle").style("opacity", (dot) =>
                         dot.diabetic_status === currentlySelectedStatus
-                            ? 1
+                            ? 0.85
                             : 0.2
                     );
                 }
             })
-            // tooltip stuff
+
+            // Tooltip interactions with hover effect
             .on("mouseover", function (event, d) {
                 tooltip.style("display", "block");
-                d3.select(this).style("opacity", 1);
+                // On hover, add a black outline with a slightly thicker stroke
+                d3.select(this).attr("stroke", "black").attr("stroke-width", 2);
             })
             .on("mousemove", function (event, d) {
                 tooltip
                     .html(
                         `
-                    <strong>Meal:</strong> ${d["Meal Type"]}<br/>
-                    <strong>Spike:</strong> ${(+d.spike).toFixed(1)} mg/dL<br/>
-                    <strong>${nutrientType}:</strong> ${(+d[
-                            nutrientType
-                        ]).toFixed(1)}g
-                `
+            <strong>Meal:</strong> ${d["Meal Type"]}<br/>
+            <strong>Spike:</strong> ${(+d.spike).toFixed(1)} mg/dL<br/>
+            <strong>${nutrientType}:</strong> ${(+d[nutrientType]).toFixed(1)}g
+        `
                     )
                     .style("left", event.pageX + 10 + "px")
                     .style("top", event.pageY - 10 + "px");
             })
             .on("mouseout", function () {
                 tooltip.style("display", "none");
-                d3.select(this).style("opacity", 0.6);
+                // Revert to the default thin border
+                d3.select(this).attr("stroke", "black").attr("stroke-width", 1);
             });
 
         addLegend(svg);
@@ -550,8 +552,8 @@ function calculateRegression(data, nutrientType) {
     const slope = ssXY / ssXX;
     const intercept = yMean - slope * xMean;
 
-    // Generate points for the line
-    const xDomain = xScale.domain();
+    // Generate points for the line using the xScale domain from the caller
+    const xDomain = [d3.min(xValues), d3.max(xValues)];
     const x1 = xDomain[0];
     const x2 = xDomain[1];
 
